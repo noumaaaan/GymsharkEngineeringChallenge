@@ -21,7 +21,7 @@ struct Hit: Codable, Hashable {
     let availableSizes: [AvailableSize]?
     let handle: String?
     let title: String
-    let description: String?
+    var description: String
     let type: String?
     let fit: String?
     let labels: [Labels]?

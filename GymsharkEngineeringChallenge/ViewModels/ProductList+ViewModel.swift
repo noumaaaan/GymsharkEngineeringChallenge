@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+import UIKit
 
 @MainActor
 final class ProductListViewModel: ObservableObject {
@@ -18,6 +20,10 @@ final class ProductListViewModel: ObservableObject {
     func fetchProducts() async {
         do {
             self.products = try await APIService.getProducts()
+            for index in products.indices {
+                products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
+            }
+            
         } catch {
             shouldShowAlert = true
             self.error = error as? GSError
