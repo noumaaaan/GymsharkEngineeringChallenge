@@ -12,19 +12,23 @@ struct ProductDetailsView: View {
     
     var body: some View {
         VStack {
-            if let media = product.media {
-                TabView {
-                    ForEach(media, id: \.self) { option in
-                        GSImage(url: option.src, height: 350)
-                    }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .always))
-                .indexViewStyle(.page(backgroundDisplayMode: .always))
-                
-            } else {
-                GSImage(url: product.featuredMedia?.src)
+            
+            ScrollView {
+//                if let media = product.media {
+//                    TabView {
+//                        ForEach(media, id: \.self) { option in
+//                            GSImage(url: option.src, height: 350)
+//                        }
+//                    }
+//                    .tabViewStyle(.page(indexDisplayMode: .always))
+//                    .indexViewStyle(.page(backgroundDisplayMode: .always))
+//                    
+//                } else {
+//                    GSImage(url: product.featuredMedia?.src)
+//                }
             }
         }
+        .navigationTitle(product.title)
     }
 }
 

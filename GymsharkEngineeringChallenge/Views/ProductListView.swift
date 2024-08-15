@@ -15,13 +15,21 @@ struct ProductListView: View {
             VStack(spacing: .zero) {
                 collectionView
             }
-            .navigationTitle("Products")
-            .toolbarTitleDisplayMode(.inlineLarge)
+            .navigationBarTitleDisplayMode(.inline)
             .task {
                 await viewModel.fetchProducts()
             }
             .refreshable {
                 await viewModel.refreshList()
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image("fullgslogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100)
+                        .foregroundStyle(Color.init(hex: "4E31AA"))
+                }
             }
         }
     }
