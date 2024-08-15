@@ -18,7 +18,7 @@ struct Hit: Codable, Hashable {
     let sku: String?
     let inStock: Bool
     let sizeInStock: [Size]?
-    let availableSizes: [AvailableSize]?
+    let availableSizes: [AvailableSize]
     let handle: String?
     let title: String
     var description: String
@@ -73,4 +73,3 @@ struct AvailableSize: Codable, Hashable {
 struct Media: Codable, Hashable {
     let src: String?
 }
-

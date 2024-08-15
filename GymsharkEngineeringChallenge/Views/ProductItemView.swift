@@ -13,13 +13,13 @@ struct ProductItemView: View {
     
     var body: some View {
         VStack {
-            GSImage(url: imageEndpoint)
+            GSImageView(url: imageEndpoint)
                 .opacity(product.inStock ? 1 : 0.35)
                 .overlay(alignment: .topLeading) {
                     if let labels = product.labels {
                         VStack(alignment: .leading, spacing: .zero) {
                             ForEach(labels, id: \.self) { label in
-                                ProductLabel(label: label.displayLabel, inStock: product.inStock)
+                                ProductLabelView(label: label.displayLabel, inStock: product.inStock)
                                     .padding(.horizontal, 5)
                                     .padding(.top, 5)
                                 

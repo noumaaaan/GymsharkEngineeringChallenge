@@ -16,9 +16,6 @@ struct ProductListView: View {
                 collectionView
             }
             .navigationBarTitleDisplayMode(.inline)
-            .task {
-                await viewModel.fetchProducts()
-            }
             .refreshable {
                 await viewModel.refreshList()
             }

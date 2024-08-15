@@ -1,5 +1,5 @@
 //
-//  ProductLabel.swift
+//  ProductLabelView.swift
 //  GymsharkEngineeringChallenge
 //
 //  Created by Noumaan Mehmood on 15/08/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProductLabel: View {
+struct ProductLabelView: View {
     let label: String
     let inStock: Bool
     
@@ -23,5 +23,5 @@ struct ProductLabel: View {
 }
 
 #Preview {
-    ProductLabel(label: "going-fast", inStock: true)
+    ProductLabelView(label: "going-fast", inStock: true)
 }

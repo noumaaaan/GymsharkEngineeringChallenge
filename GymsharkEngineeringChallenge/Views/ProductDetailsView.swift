@@ -12,9 +12,14 @@ struct ProductDetailsView: View {
     let product: Hit
     
     var body: some View {
-         ScrollView {
-             mediaSection
-             Text(product.description)
+        
+        VStack {
+            mediaSection
+            
+            ScrollView {
+                sizingSection
+                    .padding(.horizontal)
+           }
         }
         .navigationTitle(product.title)
     }
@@ -26,32 +31,24 @@ extension ProductDetailsView {
            if let media = product.media {
                TabView {
                    ForEach(media, id: \.self) { option in
-                       GSImage(url: option.src, height: 350)
+                       GSImageView(url: option.src, height: 370)
                    }
                }
                .tabViewStyle(.page(indexDisplayMode: .automatic))
                .indexViewStyle(.page(backgroundDisplayMode: .always))
                
            } else {
-               GSImage(url: product.featuredMedia?.src)
+               GSImageView(url: product.featuredMedia?.src)
            }
        }
         .frame(height: 360)
     }
     
+    var sizingSection: some View {
+        AvailableSizesView(product: product)
+    }
 }
 
 #Preview {
     ProductDetailsView(product: MockProduct().product)
-}
-
-extension String {
-    var decodedHtml: String {
-        let attr = try? NSAttributedString(data: Data(utf8), options: [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ], documentAttributes: nil)
-
-        return attr?.string ?? self
-    }
 }

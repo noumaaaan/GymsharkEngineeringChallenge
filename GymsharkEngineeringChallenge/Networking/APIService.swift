@@ -21,6 +21,7 @@ final class APIService {
         do {
             let decoder = JSONDecoder()
             return try decoder.decode(Products.self, from: data).hits
+            
         } catch {
             print(error)
             throw GSError.invalidData

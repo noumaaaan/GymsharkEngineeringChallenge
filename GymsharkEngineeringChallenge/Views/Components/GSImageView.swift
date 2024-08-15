@@ -1,5 +1,5 @@
 //
-//  GSImage.swift
+//  GSImageView.swift
 //  GymsharkEngineeringChallenge
 //
 //  Created by Noumaan Mehmood on 15/08/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GSImage: View {
+struct GSImageView: View {
     var url: String?
     var width: CGFloat = 170
     var height: CGFloat = 205
@@ -38,7 +38,7 @@ struct GSImage: View {
     }
 }
 
-extension GSImage {
+extension GSImageView {
     var placeholderView: some View {
         ZStack {
             backgroundColor
@@ -54,5 +54,5 @@ extension GSImage {
 }
 
 #Preview {
-    GSImage(url: nil)
+    GSImageView(url: nil)
 }
