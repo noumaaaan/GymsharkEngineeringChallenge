@@ -12,8 +12,16 @@ struct ProductItemView: View {
     
     var body: some View {
         VStack {
-            GSImage(url: product.featuredMedia?.src)
-                .opacity(product.inStock ? 1 : 0.35)
+            
+            // Reduce the thumbnail fetch to improve performance
+            // https://cdn.shopify.com/
+            if let updatedURL = product.featuredMedia?.src?.replacingOccurrences(of: "(\\?.*)$", with: "?width=500", options: .regularExpression) {
+                GSImage(url: updatedURL)
+                    .opacity(product.inStock ? 1 : 0.35)
+            }
+
+//            GSImage(url: product.featuredMedia?.src)
+//                .opacity(product.inStock ? 1 : 0.35)
             
             VStack(alignment: .leading) {
                 Text(product.price.formatted(.currency(code: "GBP")))
@@ -21,11 +29,12 @@ struct ProductItemView: View {
                     .foregroundStyle(product.inStock ? .indigo : .gray)
                 Text(product.title)
                     .lineLimit(2, reservesSpace: true)
-                    .font(.subheadline.bold())
+                    .multilineTextAlignment(.leading)
+                    .font(.footnote.bold())
                     .foregroundStyle(product.inStock ? .black : .gray)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .multilineTextAlignment(.leading)
+            .padding(.bottom, 3)
         }
     }
 }
