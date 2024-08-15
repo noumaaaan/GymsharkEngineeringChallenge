@@ -27,6 +27,9 @@ struct ProductListView: View {
                         .frame(width: 100)
                         .foregroundStyle(Color.init(hex: "B51B75"))
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    sortingMenu
+                }
             }
         }
     }
@@ -52,6 +55,11 @@ extension ProductListView {
         }
     }
     
+    var sortingMenu: some View {
+        ProductSortView(selectedSortOption: viewModel.selectedSortOption) { option in
+            viewModel.sortResults(sortOption: option)
+        }
+    }
 }
 
 #Preview {

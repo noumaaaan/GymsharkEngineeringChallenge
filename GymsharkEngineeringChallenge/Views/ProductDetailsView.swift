@@ -13,51 +13,51 @@ struct ProductDetailsView: View {
     
     var body: some View {
         
-        VStack {
-            mediaSection
-            
+        ScrollView {
             VStack {
-                if let handle = product.handle {
-                    Text(handle)
-                        .lineLimit(2)
-                        .font(.caption2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                mediaSection
                 
-                if let labels = product.labels {
-                    HStack {
-                        ForEach(labels, id:\.self) { label in
-                            ProductLabelView(label: label.displayLabel, showBackground: product.inStock)
-                        }
+                VStack {
+                    if let handle = product.handle {
+                        Text(handle)
+                            .lineLimit(2)
+                            .font(.caption2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                Text(product.price.formatted(.currency(code: "GBP")))
-                    .font(.title2).bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 5)
-                
-                Text("\(product.type) / \(product.colour)")
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if let fit = product.fit {
-                    Text(fit)
+                    
+                    if let labels = product.labels {
+                        HStack {
+                            ForEach(labels, id:\.self) { label in
+                                ProductLabelView(label: label.displayLabel, showBackground: product.inStock)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Text(product.price.formatted(.currency(code: "GBP")))
+                        .font(.title2).bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 5)
+                    
+                    Text("\(product.type) / \(product.colour)")
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                sizingSection
-                    .padding(.top, 5)
-
-                ScrollView {
+                    
+                    if let fit = product.fit {
+                        Text(fit)
+                            .font(.caption)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    sizingSection
+                        .padding(.top, 5)
+                    
                     Text(product.description)
-               }
+                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
+            .navigationTitle(product.title)
         }
-        .navigationTitle(product.title)
     }
 }
 
@@ -71,7 +71,7 @@ extension ProductDetailsView {
                    }
                }
                .tabViewStyle(.page(indexDisplayMode: .automatic))
-               .indexViewStyle(.page(backgroundDisplayMode: .always))
+               .indexViewStyle(.page(backgroundDisplayMode: .interactive))
                
            } else {
                GSImageView(url: product.featuredMedia?.src)

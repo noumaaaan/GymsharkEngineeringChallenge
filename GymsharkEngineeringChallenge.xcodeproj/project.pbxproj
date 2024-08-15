@@ -25,6 +25,7 @@
 		8C61235F2C6D888400DFF9B6 /* GSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61235E2C6D888300DFF9B6 /* GSImageView.swift */; };
 		8C6123622C6DAB3E00DFF9B6 /* ProductLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123612C6DAB3E00DFF9B6 /* ProductLabelView.swift */; };
 		8C6123642C6E6F1D00DFF9B6 /* AvailableSizesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123632C6E6F1D00DFF9B6 /* AvailableSizesView.swift */; };
+		8C6123682C6EB50E00DFF9B6 /* ProductSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		8C61235E2C6D888300DFF9B6 /* GSImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSImageView.swift; sourceTree = "<group>"; };
 		8C6123612C6DAB3E00DFF9B6 /* ProductLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLabelView.swift; sourceTree = "<group>"; };
 		8C6123632C6E6F1D00DFF9B6 /* AvailableSizesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableSizesView.swift; sourceTree = "<group>"; };
+		8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSortView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */,
+				8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */,
 				8C6123572C6D852500DFF9B6 /* ProductItemView.swift */,
 				8C6123592C6D852D00DFF9B6 /* ProductDetailsView.swift */,
 				8C6123602C6D888A00DFF9B6 /* Components */,
@@ -354,6 +357,7 @@
 				8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */,
 				8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */,
 				8C61234F2C6D848100DFF9B6 /* MockProduct.swift in Sources */,
+				8C6123682C6EB50E00DFF9B6 /* ProductSortView.swift in Sources */,
 				8C6123532C6D84CA00DFF9B6 /* GSError.swift in Sources */,
 				8C6123512C6D84B000DFF9B6 /* ProductList+ViewModel.swift in Sources */,
 				8C61235A2C6D852D00DFF9B6 /* ProductDetailsView.swift in Sources */,
