@@ -18,19 +18,23 @@ struct GSImageView: View {
     var body: some View {
         VStack {
             if let url = url {
-                AsyncImage(url: URL(string: url)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: height)
-                        .frame(maxWidth: .infinity)
-                    
-                } placeholder: {
-                    placeholderView
+                AsyncImage(url: URL(string: url)) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: height)
+                            .frame(maxWidth: .infinity)
+                        
+                    } else if phase.error != nil {
+                        placeholderView(color: .init(hex: "B51B75"))
+                    } else {
+                        placeholderView()
+                    }
                 }
                 
             } else {
-                placeholderView
+                placeholderView()
             }
         }
         .background(backgroundColor)
@@ -39,7 +43,7 @@ struct GSImageView: View {
 }
 
 extension GSImageView {
-    var placeholderView: some View {
+    func placeholderView(color: Color = .gray) -> some View {
         ZStack {
             backgroundColor
                 .frame(height: height)
@@ -47,8 +51,8 @@ extension GSImageView {
             Image("gslogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                .foregroundStyle(Color.init(hex: "B51B75"))
+                .frame(width: 50)
+                .foregroundStyle(color)
         }
     }
 }

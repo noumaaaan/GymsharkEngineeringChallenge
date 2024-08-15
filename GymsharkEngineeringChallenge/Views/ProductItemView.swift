@@ -19,7 +19,7 @@ struct ProductItemView: View {
                     if let labels = product.labels {
                         VStack(alignment: .leading, spacing: .zero) {
                             ForEach(labels, id: \.self) { label in
-                                ProductLabelView(label: label.displayLabel, inStock: product.inStock)
+                                ProductLabelView(label: label.displayLabel, showBackground: product.inStock)
                                     .padding(.horizontal, 5)
                                     .padding(.top, 5)
                                 

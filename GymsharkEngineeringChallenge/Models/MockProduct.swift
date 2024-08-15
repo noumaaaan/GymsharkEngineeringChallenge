@@ -23,32 +23,38 @@ struct MockProduct {
             .init(
                 inStock: true,
                 inventoryQuantity: 1,
-                size: .xs
+                size: .xs,
+                price: 1000
             ),
             .init(
                 inStock: true,
                 inventoryQuantity: 1,
-                size: .s
+                size: .s,
+                price: 1000
             ),
             .init(
                 inStock: false,
                 inventoryQuantity: 0,
-                size: .m
+                size: .m,
+                price: 1000
             ),
             .init(
                 inStock: true,
                 inventoryQuantity: 1,
-                size: .l
+                size: .l,
+                price: 1000
             ),
             .init(
                 inStock: true,
                 inventoryQuantity: 1,
-                size: .xl
+                size: .xl,
+                price: 1000
             ),
             .init(
                 inStock: true,
                 inventoryQuantity: 1,
-                size: .xxl
+                size: .xxl,
+                price: 1000
             )
         ],
         handle: "gymshark-flex-high-waisted-leggings-atlas-blue-marl-aw21",

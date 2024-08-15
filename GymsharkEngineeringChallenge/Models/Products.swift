@@ -15,17 +15,17 @@ struct Products: Codable, Hashable {
 // MARK: - Hit
 struct Hit: Codable, Hashable {
     let id: Int
-    let sku: String?
+    let sku: String
     let inStock: Bool
     let sizeInStock: [Size]?
     let availableSizes: [AvailableSize]
     let handle: String?
     let title: String
     var description: String
-    let type: String?
+    let type: String
     let fit: String?
     let labels: [Labels]?
-    let colour: String?
+    let colour: String
     let price: Int
     let featuredMedia: Media?
     let media: [Media]?
@@ -67,6 +67,7 @@ struct AvailableSize: Codable, Hashable {
     let inStock: Bool
     let inventoryQuantity: Int
     let size: Size
+    let price: Int
 }
 
 // MARK: - Media

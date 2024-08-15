@@ -38,18 +38,19 @@ struct AvailableSizesView: View {
             if let selectedSize = selectedSize {
                 Text("\(String(selectedSize.inventoryQuantity)) available")
                     .font(.footnote)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             
             if !product.inStock {
                 Text("Out of Stock")
+                    .opacity(0.6)
                     .font(.footnote)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            
+                        
             Spacer()
         }
-        .frame(height: 80)
+        .frame(height: 77)
     }
 }
 

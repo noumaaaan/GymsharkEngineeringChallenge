@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ProductLabelView: View {
     let label: String
-    let inStock: Bool
+    var showBackground: Bool = true
+    let backgroundColor: Color = Color.init(hex: "B51B75")
     
     var body: some View {
         Text(label)
@@ -17,11 +18,11 @@ struct ProductLabelView: View {
             .foregroundStyle(.white)
             .padding(.vertical, 5)
             .padding(.horizontal, 8)
-            .background(inStock ? Color.init(hex: "B51B75") : .gray)
+            .background(showBackground ? backgroundColor : .gray)
             .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
 #Preview {
-    ProductLabelView(label: "going-fast", inStock: true)
+    ProductLabelView(label: "going-fast", showBackground: true)
 }

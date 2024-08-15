@@ -25,7 +25,7 @@ struct ProductListView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100)
-                        .foregroundStyle(Color.init(hex: "4E31AA"))
+                        .foregroundStyle(Color.init(hex: "B51B75"))
                 }
             }
         }
