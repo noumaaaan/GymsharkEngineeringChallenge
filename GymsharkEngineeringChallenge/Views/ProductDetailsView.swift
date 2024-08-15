@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct ProductDetailsView: View {
+    let product: Hit
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if let media = product.media {
+                TabView {
+                    ForEach(media, id: \.self) { option in
+                        GSImage(url: option.src, height: 350)
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                
+            } else {
+                GSImage(url: product.featuredMedia?.src)
+            }
+        }
     }
 }
 
 #Preview {
-    ProductDetailsView()
+    ProductDetailsView(product: MockProduct().product)
 }

@@ -24,7 +24,7 @@ struct Hit: Codable, Hashable {
     let description: String?
     let type: String?
     let fit: String?
-    let labels: [String]?
+    let labels: [Labels]?
     let colour: String?
     let price: Int
     let featuredMedia: Media?
@@ -39,7 +39,27 @@ enum Size: String, Codable {
     case l = "l"
     case xl = "xl"
     case xxl = "xxl"
-    case xxxl = "xxxl"
+}
+
+// MARK: - Size
+enum Labels: String, Codable {
+    case goingFast = "going-fast"
+    case popular = "popular"
+    case limitedEdition = "limited-edition"
+    case new = "new"
+    case recycledNylon = "recycled-nylon"
+    case recycledPolyester = "recycled-polyester"
+    
+    var displayLabel: String {
+        switch self {
+        case .goingFast: "Going Fast"
+        case .popular: "Popular"
+        case .limitedEdition: "Limited Edition"
+        case .new: "New"
+        case .recycledNylon: "Recycled Nylon"
+        case .recycledPolyester: "Recycled Polyester"
+        }
+    }
 }
 
 // MARK: - AvailableSize

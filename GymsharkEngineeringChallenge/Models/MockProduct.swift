@@ -57,7 +57,7 @@ struct MockProduct {
         type: "Womens Leggings",
         fit: nil,
         labels: [
-            "going-fast"
+            .goingFast
         ],
         colour: "Atlas Blue Marl",
         price: 1000,

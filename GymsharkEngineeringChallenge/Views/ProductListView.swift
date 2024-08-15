@@ -33,7 +33,8 @@ extension ProductListView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
                 ForEach(viewModel.products, id: \.self) { product in
                     NavigationLink {
-                        Text(product.title)
+                        ProductDetailsView(product: product)
+                        
                     } label: {
                         ProductItemView(
                             product: product,
