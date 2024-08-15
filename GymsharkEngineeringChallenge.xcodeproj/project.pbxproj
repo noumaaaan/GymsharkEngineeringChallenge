@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */; };
-		8C6123212C6D82EB00DFF9B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123202C6D82EB00DFF9B6 /* ContentView.swift */; };
+		8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */; };
 		8C6123232C6D82ED00DFF9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6123222C6D82ED00DFF9B6 /* Assets.xcassets */; };
 		8C6123262C6D82ED00DFF9B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6123252C6D82ED00DFF9B6 /* Preview Assets.xcassets */; };
 		8C6123302C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61232F2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeTests.swift */; };
 		8C61233A2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123392C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITests.swift */; };
 		8C61233C2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61233B2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITestsLaunchTests.swift */; };
+		8C61234D2C6D845F00DFF9B6 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61234C2C6D845F00DFF9B6 /* Products.swift */; };
+		8C61234F2C6D848100DFF9B6 /* MockProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61234E2C6D848100DFF9B6 /* MockProduct.swift */; };
+		8C6123512C6D84B000DFF9B6 /* ProductList+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123502C6D84B000DFF9B6 /* ProductList+ViewModel.swift */; };
+		8C6123532C6D84CA00DFF9B6 /* GSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123522C6D84CA00DFF9B6 /* GSError.swift */; };
+		8C6123552C6D84D300DFF9B6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123542C6D84D300DFF9B6 /* APIService.swift */; };
+		8C6123582C6D852500DFF9B6 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123572C6D852500DFF9B6 /* ProductView.swift */; };
+		8C61235A2C6D852D00DFF9B6 /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123592C6D852D00DFF9B6 /* ProductDetailsView.swift */; };
+		8C61235D2C6D855100DFF9B6 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61235C2C6D855100DFF9B6 /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +44,7 @@
 /* Begin PBXFileReference section */
 		8C61231B2C6D82EB00DFF9B6 /* GymsharkEngineeringChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymsharkEngineeringChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsharkEngineeringChallengeApp.swift; sourceTree = "<group>"; };
-		8C6123202C6D82EB00DFF9B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		8C6123222C6D82ED00DFF9B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C6123252C6D82ED00DFF9B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8C61232B2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymsharkEngineeringChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +52,14 @@
 		8C6123352C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymsharkEngineeringChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C6123392C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsharkEngineeringChallengeUITests.swift; sourceTree = "<group>"; };
 		8C61233B2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsharkEngineeringChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8C61234C2C6D845F00DFF9B6 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		8C61234E2C6D848100DFF9B6 /* MockProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProduct.swift; sourceTree = "<group>"; };
+		8C6123502C6D84B000DFF9B6 /* ProductList+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductList+ViewModel.swift"; sourceTree = "<group>"; };
+		8C6123522C6D84CA00DFF9B6 /* GSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSError.swift; sourceTree = "<group>"; };
+		8C6123542C6D84D300DFF9B6 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		8C6123572C6D852500DFF9B6 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		8C6123592C6D852D00DFF9B6 /* ProductDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsView.swift; sourceTree = "<group>"; };
+		8C61235C2C6D855100DFF9B6 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +111,12 @@
 			isa = PBXGroup;
 			children = (
 				8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */,
-				8C6123202C6D82EB00DFF9B6 /* ContentView.swift */,
-				8C6123222C6D82ED00DFF9B6 /* Assets.xcassets */,
+				8C61235B2C6D854300DFF9B6 /* Extensions */,
+				8C61234B2C6D844400DFF9B6 /* Models */,
+				8C61234A2C6D843F00DFF9B6 /* Views */,
+				8C6123492C6D843800DFF9B6 /* ViewModels */,
+				8C6123482C6D843200DFF9B6 /* Networking */,
+				8C6123562C6D84F500DFF9B6 /* Assets */,
 				8C6123242C6D82ED00DFF9B6 /* Preview Content */,
 			);
 			path = GymsharkEngineeringChallenge;
@@ -125,6 +145,58 @@
 				8C61233B2C6D82ED00DFF9B6 /* GymsharkEngineeringChallengeUITestsLaunchTests.swift */,
 			);
 			path = GymsharkEngineeringChallengeUITests;
+			sourceTree = "<group>";
+		};
+		8C6123482C6D843200DFF9B6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8C6123522C6D84CA00DFF9B6 /* GSError.swift */,
+				8C6123542C6D84D300DFF9B6 /* APIService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		8C6123492C6D843800DFF9B6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8C6123502C6D84B000DFF9B6 /* ProductList+ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8C61234A2C6D843F00DFF9B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */,
+				8C6123572C6D852500DFF9B6 /* ProductView.swift */,
+				8C6123592C6D852D00DFF9B6 /* ProductDetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8C61234B2C6D844400DFF9B6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8C61234C2C6D845F00DFF9B6 /* Products.swift */,
+				8C61234E2C6D848100DFF9B6 /* MockProduct.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8C6123562C6D84F500DFF9B6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8C6123222C6D82ED00DFF9B6 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		8C61235B2C6D854300DFF9B6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8C61235C2C6D855100DFF9B6 /* Color+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +329,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C6123212C6D82EB00DFF9B6 /* ContentView.swift in Sources */,
+				8C6123582C6D852500DFF9B6 /* ProductView.swift in Sources */,
+				8C61235D2C6D855100DFF9B6 /* Color+Extension.swift in Sources */,
+				8C61234D2C6D845F00DFF9B6 /* Products.swift in Sources */,
+				8C6123552C6D84D300DFF9B6 /* APIService.swift in Sources */,
+				8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */,
 				8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */,
+				8C61234F2C6D848100DFF9B6 /* MockProduct.swift in Sources */,
+				8C6123532C6D84CA00DFF9B6 /* GSError.swift in Sources */,
+				8C6123512C6D84B000DFF9B6 /* ProductList+ViewModel.swift in Sources */,
+				8C61235A2C6D852D00DFF9B6 /* ProductDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
