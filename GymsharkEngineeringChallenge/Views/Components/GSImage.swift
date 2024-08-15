@@ -21,8 +21,9 @@ struct GSImage: View {
                 AsyncImage(url: URL(string: url)) { image in
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(height: height)
+                        .frame(maxWidth: .infinity)
                     
                 } placeholder: {
                     placeholderView
@@ -45,9 +46,9 @@ extension GSImage {
             
             Image("gslogo")
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50)
-                .foregroundStyle(Color.init(hex: "182C4C"))
+                .foregroundStyle(Color.init(hex: "B51B75"))
         }
     }
 }

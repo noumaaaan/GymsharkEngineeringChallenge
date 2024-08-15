@@ -13,7 +13,7 @@ struct ProductListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: .zero) {
-                alternateView
+                collectionView
             }
             .navigationTitle("Products")
             .toolbarTitleDisplayMode(.inlineLarge)
@@ -28,14 +28,17 @@ struct ProductListView: View {
 }
 
 extension ProductListView {
-    var alternateView: some View {
+    var collectionView: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
                 ForEach(viewModel.products, id: \.self) { product in
                     NavigationLink {
                         Text(product.title)
                     } label: {
-                        ProductItemView(product: product)
+                        ProductItemView(
+                            product: product,
+                            imageEndpoint: viewModel.optimiseImageEndpoint(endpoint: product.featuredMedia?.src)
+                        )
                     }
                 }
             }

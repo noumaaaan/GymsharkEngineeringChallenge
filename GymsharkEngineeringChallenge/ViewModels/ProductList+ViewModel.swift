@@ -28,4 +28,9 @@ final class ProductListViewModel: ObservableObject {
         self.products.removeAll()
         await fetchProducts()
     }
+    
+    // Reduce the thumbnail fetch to improve performance -> https://cdn.shopify.com/
+    func optimiseImageEndpoint(endpoint: String?) -> String? {
+        return endpoint?.replacingOccurrences(of: "(\\?.*)$", with: "?width=380", options: .regularExpression)
+    }
 }
