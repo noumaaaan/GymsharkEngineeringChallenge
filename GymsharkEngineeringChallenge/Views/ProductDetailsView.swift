@@ -37,6 +37,7 @@ struct ProductDetailsView: View {
                     Text(product.price.formatted(.currency(code: "GBP")))
                         .font(.title2).bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(Color.init(hex: "B51B75"))
                         .padding(.top, 5)
                     
                     Text("\(product.type) / \(product.colour)")

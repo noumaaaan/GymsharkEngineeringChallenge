@@ -32,6 +32,7 @@ struct ProductSortView: View {
          } label: {
              Image(systemName: selectedSortOption?.image ?? "arrow.up.arrow.down.circle")
         }
+         .contentTransition(.symbolEffect(.replace))
     }
 }
 

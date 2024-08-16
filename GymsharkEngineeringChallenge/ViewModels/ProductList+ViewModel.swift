@@ -15,8 +15,8 @@ final class ProductListViewModel: ObservableObject {
     @Published var products: [Hit] = []
     @Published var selectedSortOption: SortOption?
         
-    @Published var shouldShowAlert = false
     @Published var error: GSError?
+    @Published var shouldShowAlert = false
     @Published var isAlertPresented: Bool = false
     
     init() {
@@ -26,16 +26,18 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func fetchProducts() async {
-        do {
-            print("Fetched products")
-            self.products = try await APIService.getProducts()
-            for index in products.indices {
-                products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
+        
+        Task {
+            do {
+                print("Fetched products")
+                self.products = try await APIService.getProducts()
+                for index in products.indices {
+                    products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
+                }
+                
+            } catch {
+                self.error = error as? GSError
             }
-            
-        } catch {
-            shouldShowAlert = true
-            self.error = error as? GSError
         }
     }
     

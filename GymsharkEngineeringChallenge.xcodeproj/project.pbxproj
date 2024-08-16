@@ -26,6 +26,7 @@
 		8C6123622C6DAB3E00DFF9B6 /* ProductLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123612C6DAB3E00DFF9B6 /* ProductLabelView.swift */; };
 		8C6123642C6E6F1D00DFF9B6 /* AvailableSizesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123632C6E6F1D00DFF9B6 /* AvailableSizesView.swift */; };
 		8C6123682C6EB50E00DFF9B6 /* ProductSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */; };
+		8C61236A2C6EBD1D00DFF9B6 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123692C6EBD1D00DFF9B6 /* CustomAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		8C6123612C6DAB3E00DFF9B6 /* ProductLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLabelView.swift; sourceTree = "<group>"; };
 		8C6123632C6E6F1D00DFF9B6 /* AvailableSizesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableSizesView.swift; sourceTree = "<group>"; };
 		8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSortView.swift; sourceTree = "<group>"; };
+		8C6123692C6EBD1D00DFF9B6 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */,
+				8C6123692C6EBD1D00DFF9B6 /* CustomAlertView.swift */,
 				8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */,
 				8C6123572C6D852500DFF9B6 /* ProductItemView.swift */,
 				8C6123592C6D852D00DFF9B6 /* ProductDetailsView.swift */,
@@ -349,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C61236A2C6EBD1D00DFF9B6 /* CustomAlertView.swift in Sources */,
 				8C6123582C6D852500DFF9B6 /* ProductItemView.swift in Sources */,
 				8C6123642C6E6F1D00DFF9B6 /* AvailableSizesView.swift in Sources */,
 				8C61235D2C6D855100DFF9B6 /* Color+Extension.swift in Sources */,

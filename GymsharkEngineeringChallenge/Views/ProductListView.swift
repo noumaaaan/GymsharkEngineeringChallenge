@@ -12,23 +12,29 @@ struct ProductListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: .zero) {
-                collectionView
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .refreshable {
-                await viewModel.refreshList()
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Image("fullgslogo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 100)
-                        .foregroundStyle(Color.init(hex: "B51B75"))
+            ZStack {
+                VStack(spacing: .zero) {
+                    collectionView
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    sortingMenu
+                .navigationBarTitleDisplayMode(.inline)
+                .refreshable {
+                    await viewModel.refreshList()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Image("fullgslogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100)
+                            .foregroundStyle(Color.init(hex: "B51B75"))
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        sortingMenu
+                    }
+                }
+                
+                if viewModel.error != nil {
+                    alertView
                 }
             }
         }
@@ -60,6 +66,22 @@ extension ProductListView {
             viewModel.sortResults(sortOption: option)
         }
     }
+    
+    var alertView: some View {
+        CustomAlertView(
+            title: "Error",
+            message: viewModel.error?.localizedDescription ?? "",
+            buttonTitle: "Try again"
+        ) {
+        } dismissAction: {
+            viewModel.isAlertPresented.toggle()
+        }
+        .transition(
+            .opacity.combined(with: .scale)
+            .animation(.bouncy(duration: 0.2, extraBounce: 0.3))
+        )
+    }
+    
 }
 
 #Preview {

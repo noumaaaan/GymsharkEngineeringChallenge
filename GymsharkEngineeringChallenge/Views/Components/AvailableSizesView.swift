@@ -18,10 +18,13 @@ struct AvailableSizesView: View {
             HStack(spacing: 5) {
                 ForEach(product.availableSizes, id: \.self) { size in
                     Button {
-                        selectedSize = selectedSize == size ? nil : size
+                        withAnimation(.easeInOut) {
+                            selectedSize = selectedSize == size ? nil : size
+                        }
                     } label: {
                         Text(size.size.rawValue.uppercased())
                             .font(.subheadline.bold())
+                            .scaleEffect(selectedSize == size ? 1.2 : 1)
                     }
                     .padding(10)
                     .frame(minWidth: 0, maxWidth: .infinity)
