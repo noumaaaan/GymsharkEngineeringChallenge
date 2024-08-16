@@ -8,7 +8,7 @@
 import Foundation
 
 final class APIService {
-    static func fetchProducts() async throws -> [Hit] {
+    static func fetchProducts() async throws -> [Product] {
         do {
             let urlString = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
             guard let url = URL(string: urlString) else { throw GSError.invalidURL }

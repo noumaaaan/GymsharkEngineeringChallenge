@@ -57,7 +57,7 @@ extension ProductListView {
                     } label: {
                         ProductItemView(
                             product: product,
-                            imageEndpoint: viewModel.optimiseImageEndpoint(endpoint: product.featuredMedia?.src)
+                            imageEndpoint: product.optimisedFeatureMediaURL
                         )
                     }
                 }

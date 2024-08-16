@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct ProductDetailsView: View {
-    let product: Hit
+    let product: Product
     
     var body: some View {
         

@@ -28,6 +28,7 @@
 		8C6123682C6EB50E00DFF9B6 /* ProductSortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */; };
 		8C61236A2C6EBD1D00DFF9B6 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123692C6EBD1D00DFF9B6 /* CustomAlertView.swift */; };
 		8C61236C2C6EE6ED00DFF9B6 /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61236B2C6EE6ED00DFF9B6 /* SortOption.swift */; };
+		8C61236E2C6EF84D00DFF9B6 /* ProductsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61236D2C6EF84D00DFF9B6 /* ProductsDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		8C6123672C6EB50E00DFF9B6 /* ProductSortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSortView.swift; sourceTree = "<group>"; };
 		8C6123692C6EBD1D00DFF9B6 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		8C61236B2C6EE6ED00DFF9B6 /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
+		8C61236D2C6EF84D00DFF9B6 /* ProductsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				8C61234C2C6D845F00DFF9B6 /* Products.swift */,
+				8C61236D2C6EF84D00DFF9B6 /* ProductsDTO.swift */,
 				8C61234E2C6D848100DFF9B6 /* MockProduct.swift */,
 				8C61236B2C6EE6ED00DFF9B6 /* SortOption.swift */,
 			);
@@ -361,6 +364,7 @@
 				8C61235D2C6D855100DFF9B6 /* Color+Extension.swift in Sources */,
 				8C61234D2C6D845F00DFF9B6 /* Products.swift in Sources */,
 				8C6123552C6D84D300DFF9B6 /* APIService.swift in Sources */,
+				8C61236E2C6EF84D00DFF9B6 /* ProductsDTO.swift in Sources */,
 				8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */,
 				8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */,
 				8C61234F2C6D848100DFF9B6 /* MockProduct.swift in Sources */,

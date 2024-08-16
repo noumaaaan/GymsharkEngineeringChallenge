@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductItemView: View {
-    let product: Hit
+    let product: Product
     let imageEndpoint: String?
     
     var body: some View {

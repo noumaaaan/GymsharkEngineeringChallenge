@@ -13,15 +13,15 @@ enum SortOption: CaseIterable {
     
     var label: String {
         switch self {
-        case .priceAscending: "Price ascending"
-        case .priceDescending: "Price descending"
+        case .priceAscending: return "Price ascending"
+        case .priceDescending: return "Price descending"
         }
     }
     
     var image: String {
         switch self {
-        case .priceAscending: "arrow.up.circle"
-        case .priceDescending: "arrow.down.circle"
+        case .priceAscending: return "arrow.up.circle"
+        case .priceDescending: return "arrow.down.circle"
         }
     }
 }

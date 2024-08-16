@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AvailableSizesView: View {
-    let product: Hit
+    let product: Product
     
     @State var selectedSize: AvailableSize?
     

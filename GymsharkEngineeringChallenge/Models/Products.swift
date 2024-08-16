@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - Products
 struct Products: Codable, Hashable {
-    let hits: [Hit]
+    let hits: [Product]
 }
 
 // MARK: - Hit
-struct Hit: Codable, Hashable {
+struct Product: Codable, Hashable {
     let id: Int
     let sku: String
     let inStock: Bool
@@ -29,6 +29,11 @@ struct Hit: Codable, Hashable {
     let price: Int
     let featuredMedia: Media?
     let media: [Media]?
+    
+    // Reduce the thumbnail fetch to improve performance -> https://cdn.shopify.com/
+    var optimisedFeatureMediaURL: String? {
+        return featuredMedia?.src?.replacingOccurrences(of: "(\\?.*)$", with: "?width=380", options: .regularExpression)
+    }
 }
 
 // MARK: - Size
@@ -73,4 +78,45 @@ struct AvailableSize: Codable, Hashable {
 // MARK: - Media
 struct Media: Codable, Hashable {
     let src: String?
+}
+
+extension Product {
+    init(from dto: ProductDTO) {
+        self.id = dto.id
+        self.sku = dto.sku
+        self.inStock = dto.inStock
+        self.sizeInStock = dto.sizeInStock?.compactMap { Size(rawValue: $0.rawValue) }
+        self.availableSizes = dto.availableSizes.map { AvailableSize(from: $0) }
+        self.handle = dto.handle
+        self.title = dto.title
+        self.description = dto.description.decodedHtml // Decode HTML here
+        self.type = dto.type
+        self.fit = dto.fit
+        self.labels = dto.labels?.compactMap { Labels(rawValue: $0.rawValue) }
+        self.colour = dto.colour
+        self.price = dto.price
+        self.featuredMedia = dto.featuredMedia.map { Media(src: $0.src) }
+        self.media = dto.media?.map { Media(src: $0.src) }
+    }
+}
+
+extension AvailableSize {
+    init(from dto: AvailableSizeDTO) {
+        self.inStock = dto.inStock
+        self.inventoryQuantity = dto.inventoryQuantity
+        self.size = Size(rawValue: dto.size.rawValue) ?? .m
+        self.price = dto.price
+    }
+}
+
+extension String {
+    var decodedHtml: String {
+        guard let data = self.data(using: .utf8) else { return self }
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+        let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil)
+        return attributedString?.string ?? self
+    }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockProduct {
-    let product: Hit = .init(
+    let product: Product = .init(
         id: 6676631978083,
         sku: "B1A2Q",
         inStock: true,
