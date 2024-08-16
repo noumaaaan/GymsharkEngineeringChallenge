@@ -13,35 +13,40 @@ struct ProductListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                VStack(spacing: .zero) {
-                    collectionView
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .refreshable {
-                    await viewModel.refreshList()
-                }
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Image("fullgslogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
-                            .foregroundStyle(Color.init(hex: "B51B75"))
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        sortingMenu
-                    }
-                }
+                collectionView
                 
-                if viewModel.error != nil {
-                    alertView
+                if viewModel.showAlert {
+                    alertView(message: viewModel.error?.localizedDescription ?? "")
                 }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .refreshable {
+                viewModel.refreshList()
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    gymsharkHeader
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    sortingMenu
+                }
+            }
+            .onReceive(viewModel.$error) { error in
+                viewModel.toggleAlert(error: error)
             }
         }
     }
 }
 
 extension ProductListView {
+    var gymsharkHeader: some View {
+        Image("fullgslogo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 100)
+            .foregroundStyle(Color.init(hex: "B51B75"))
+    }
+    
     var collectionView: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
@@ -67,18 +72,50 @@ extension ProductListView {
         }
     }
     
-    var alertView: some View {
-        CustomAlertView(
-            title: "Error",
-            message: viewModel.error?.localizedDescription ?? "",
-            buttonTitle: "Try again"
-        ) {
-        } dismissAction: {
-            viewModel.isAlertPresented.toggle()
+    func alertView(message: String) -> some View {
+        VStack {
+            Text("Something went wrong")
+                .font(.title3.bold())
+                .padding(5)
+            
+            Text(message)
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .lineLimit(3, reservesSpace: true)
+                .frame(maxWidth: .infinity, alignment: .center)
+            
+            Button {
+                viewModel.refreshList()
+            } label: {
+                Text("Retry")
+                    .font(.title3)
+                    .foregroundStyle(.white)
+            }
+            .padding(.horizontal, 30)
+            .padding(.vertical, 5)
+            .background(.accent)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
         }
+        .overlay(alignment: .topTrailing) {
+            Button {
+                viewModel.showAlert.toggle()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+            }
+        }
+        .padding()
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(.black.opacity(0.18), lineWidth: 2)
+        )
+        .padding()
         .transition(
             .opacity.combined(with: .scale)
-            .animation(.bouncy(duration: 0.2, extraBounce: 0.3))
+            .animation(.bouncy(duration: 0.3, extraBounce: 0.2))
         )
     }
     

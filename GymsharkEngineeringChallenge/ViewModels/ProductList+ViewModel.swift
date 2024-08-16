@@ -7,50 +7,63 @@
 
 import Foundation
 import SwiftUI
-import UIKit
 
 @MainActor
 final class ProductListViewModel: ObservableObject {
     
     @Published var products: [Hit] = []
     @Published var selectedSortOption: SortOption?
-        
-    @Published var error: GSError?
-    @Published var shouldShowAlert = false
-    @Published var isAlertPresented: Bool = false
+    @Published var error: Error?
+    @Published var showAlert = false
     
     init() {
+        loadData()
+    }
+    
+    func loadData() {
         Task {
-            await fetchProducts()
+            try await fetchProducts()
         }
     }
     
-    func fetchProducts() async {
-        
-        Task {
-            do {
-                print("Fetched products")
-                self.products = try await APIService.getProducts()
-                for index in products.indices {
-                    products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
-                }
-                
-            } catch {
-                self.error = error as? GSError
+    func fetchProducts() async throws {
+        do {
+            let urlString = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
+            guard let url = URL(string: urlString) else {
+                throw GSError.invalidURL
             }
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode <= 299 else {
+                throw GSError.invalidResponse
+            }
+            
+            let decoder = JSONDecoder()
+            guard let products = try? decoder.decode(Products.self, from: data).hits else { throw GSError.invalidData }
+            self.products = products
+            
+        } catch {
+            print(error.localizedDescription)
+            self.error = error
         }
     }
     
-    func refreshList() async {
-        self.products.removeAll()
-        selectedSortOption = nil
-        await fetchProducts()
+    func toggleAlert(error: Error?) {
+        if error != nil {
+            showAlert.toggle()
+        }
     }
-    
+
+    func refreshList() {
+        products.removeAll()
+        error = nil
+        showAlert = false
+        selectedSortOption = nil
+        loadData()
+    }
+
     func sortResults(sortOption: SortOption) {
-        
         selectedSortOption = sortOption
-        
         switch sortOption {
         case .priceAscending:
             products = products.sorted(by: { $0.price < $1.price })
@@ -65,32 +78,50 @@ final class ProductListViewModel: ObservableObject {
     }
 }
 
-enum SortOption: CaseIterable {
-    case priceAscending
-    case priceDescending
-    
-    var label: String {
-        switch self {
-        case .priceAscending: "Price ascending"
-        case .priceDescending: "Price descending"
-        }
-    }
-    
-    var image: String {
-        switch self {
-        case .priceAscending: "arrow.up.circle"
-        case .priceDescending: "arrow.down.circle"
-        }
-    }
-}
 
-extension String {
-    var decodedHtml: String {
-        let attr = try? NSAttributedString(data: Data(utf8), options: [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ], documentAttributes: nil)
 
-        return attr?.string ?? self
-    }
-}
+
+//            for index in products.indices {
+//                products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
+//            }
+
+
+//    func fetchProducts() async {
+//        Task {
+//            do {
+//                print("Fetched products")
+//                self.products = try await APIService.getProducts()
+//                for index in products.indices {
+//                    products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
+//                }
+//            } catch {
+//                self.error = error as? GSError
+//            }
+//        }
+//    }
+    
+//    func refreshList() async {
+//        self.products.removeAll()
+//        selectedSortOption = nil
+//        await fetchProducts()
+//    }
+
+//    @Published var shouldShowAlert = false
+//    @Published var isAlertPresented: Bool = false
+    
+//    init() {
+//        Task {
+//            await fetchProducts()
+//        }
+//    }
+
+//extension String {
+//    var decodedHtml: String {
+//        let attr = try? NSAttributedString(data: Data(utf8), options: [
+//            .documentType: NSAttributedString.DocumentType.html,
+//            .characterEncoding: String.Encoding.utf8.rawValue
+//        ], documentAttributes: nil)
+//
+//        return attr?.string ?? self
+//    }
+//}
