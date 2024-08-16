@@ -36,6 +36,14 @@ struct Product: Codable, Hashable {
     }
 }
 
+// MARK: - AvailableSize
+struct AvailableSize: Codable, Hashable {
+    let inStock: Bool
+    let inventoryQuantity: Int
+    let size: Size
+    let price: Int
+}
+
 // MARK: - Size
 enum Size: String, Codable {
     case xs = "xs"
@@ -65,14 +73,6 @@ enum Labels: String, Codable {
         case .recycledPolyester: "Recycled Polyester"
         }
     }
-}
-
-// MARK: - AvailableSize
-struct AvailableSize: Codable, Hashable {
-    let inStock: Bool
-    let inventoryQuantity: Int
-    let size: Size
-    let price: Int
 }
 
 // MARK: - Media

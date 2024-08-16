@@ -15,6 +15,7 @@ final class ProductListViewModel: ObservableObject {
     @Published var selectedSortOption: SortOption?
     @Published var error: Error?
     @Published var showAlert = false
+    @Published var sortingMenuShown = false
     
     init() {
         loadData()
@@ -39,11 +40,16 @@ final class ProductListViewModel: ObservableObject {
             let decoder = JSONDecoder()
             guard let productsDTO = try? decoder.decode(ProductsDTO.self, from: data) else { throw GSError.invalidData }
             self.products = productsDTO.hits.map { Product(from: $0) }
+            isSortingMenuShown()
             
         } catch {
             print(error.localizedDescription)
             self.error = error
         }
+    }
+    
+    func isSortingMenuShown() {
+        sortingMenuShown = products.count > 1 ? false : true
     }
     
     func toggleAlert(error: Error?) {
@@ -54,6 +60,7 @@ final class ProductListViewModel: ObservableObject {
 
     func refreshList() {
         products.removeAll()
+        isSortingMenuShown()
         error = nil
         showAlert = false
         selectedSortOption = nil
@@ -69,20 +76,7 @@ final class ProductListViewModel: ObservableObject {
             products = products.sorted(by: { $0.price > $1.price })
         }
     }
-    
-    // Reduce the thumbnail fetch to improve performance -> https://cdn.shopify.com/
-//    func optimiseImageEndpoint(endpoint: String?) -> String? {
-//        return endpoint?.replacingOccurrences(of: "(\\?.*)$", with: "?width=380", options: .regularExpression)
-//    }
 }
-
-
-
-
-//            for index in products.indices {
-//                products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
-//            }
-
 
 //    func fetchProducts() async {
 //        Task {

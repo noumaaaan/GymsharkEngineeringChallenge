@@ -24,7 +24,7 @@ struct AvailableSizesView: View {
                     } label: {
                         Text(size.size.rawValue.uppercased())
                             .font(.subheadline.bold())
-                            .scaleEffect(selectedSize == size ? 1.2 : 1)
+                            .scaleEffect(selectedSize == size ? 1.3 : 0.8)
                     }
                     .padding(10)
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -40,8 +40,9 @@ struct AvailableSizesView: View {
             
             if let selectedSize = selectedSize {
                 Text("\(String(selectedSize.inventoryQuantity)) available")
-                    .font(.footnote)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.footnote).bold()
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .foregroundStyle(Color.init(hex: "8576FF"))
             }
             
             if !product.inStock {

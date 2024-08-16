@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+private enum Constants {
+    enum Images {
+        static let gymsharkHeader: String = "fullgslogo"
+    }
+}
+
 struct ProductListView: View {
+    
     @StateObject var viewModel = ProductListViewModel()
     
     var body: some View {
@@ -40,7 +47,7 @@ struct ProductListView: View {
 
 extension ProductListView {
     var gymsharkHeader: some View {
-        Image("fullgslogo")
+        Image(Constants.Images.gymsharkHeader)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 100)
@@ -70,6 +77,7 @@ extension ProductListView {
         ProductSortView(selectedSortOption: viewModel.selectedSortOption) { option in
             viewModel.sortResults(sortOption: option)
         }
+        .hidden(viewModel.sortingMenuShown)
     }
     
     func alertView(message: String) -> some View {
@@ -124,3 +132,4 @@ extension ProductListView {
 #Preview {
     ProductListView()
 }
+

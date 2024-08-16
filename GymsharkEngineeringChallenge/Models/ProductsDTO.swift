@@ -31,16 +31,22 @@ struct ProductDTO: Decodable {
     let media: [MediaDTO]?
 }
 
+// MARK: - AvailableSizeDTO
+struct AvailableSizeDTO: Decodable {
+    let inStock: Bool
+    let inventoryQuantity: Int
+    let size: SizeDTO
+    let price: Int
+}
+
 // MARK: - SizeDTO
 enum SizeDTO: String, Decodable {
-    case xs = "xs"
-    case s = "s"
-    case m = "m"
-    case l = "l"
-    case xl = "xl"
-    case xxl = "xxl"
-    
-    
+    case xs
+    case s
+    case m
+    case l
+    case xl
+    case xxl
 }
 
 // MARK: - LabelsDTO
@@ -51,14 +57,6 @@ enum LabelsDTO: String, Decodable {
     case new = "new"
     case recycledNylon = "recycled-nylon"
     case recycledPolyester = "recycled-polyester"
-}
-
-// MARK: - AvailableSizeDTO
-struct AvailableSizeDTO: Decodable {
-    let inStock: Bool
-    let inventoryQuantity: Int
-    let size: SizeDTO
-    let price: Int
 }
 
 // MARK: - MediaDTO
