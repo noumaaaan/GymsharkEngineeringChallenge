@@ -12,6 +12,7 @@ struct GymsharkEngineeringChallengeApp: App {
     var body: some Scene {
         WindowGroup {
             ProductListView()
+                .preferredColorScheme(.light)
         }
     }
 }
