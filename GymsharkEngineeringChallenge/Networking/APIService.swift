@@ -8,25 +8,19 @@
 import Foundation
 
 final class APIService {
-    static func fetchProducts() async throws -> [Product] {
-        do {
-            let urlString = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
-            guard let url = URL(string: urlString) else { throw GSError.invalidURL }
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode <= 299 else {
-                throw GSError.invalidResponse
-            }
-            
-            let decoder = JSONDecoder()
-            guard let products = try? decoder.decode(Products.self, from: data).hits else {
-                throw GSError.invalidData
-            }
-            return products
-            
-        } catch {
-            print(error)
-            throw GSError.unknownError(error)
-        }
+    
+    /// Fetches a list of products from the API returning [Product].
+    func fetchProducts() async throws -> [Product] {
+        let urlString = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
+        guard let url = URL(string: urlString) else { throw GSError.invalidURL }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode <= 299 else { throw GSError.invalidResponse }
+        
+        let decoder = JSONDecoder()
+        guard let productsDTO = try? decoder.decode(ProductsDTO.self, from: data) else { throw GSError.invalidData }
+        
+        return productsDTO.hits.map { Product(from: $0) }
     }
 }
+

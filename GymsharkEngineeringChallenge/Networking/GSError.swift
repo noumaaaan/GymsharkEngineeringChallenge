@@ -19,13 +19,13 @@ enum GSError: LocalizedError {
             return "The provided URL is invalid."
             
         case .invalidResponse:
-            return "The response received from the server is invalid."
+            return "The response received from the server is invalid. Please check your connection or permissions and try again."
             
         case .invalidData:
-            return "The data received is invalid."
+            return "The data received from the server is invalid or corrupted."
             
         case .unknownError(let error):
-            return error.localizedDescription
+            return "An unexpected error occurred: \(error.localizedDescription)"
         }
     }
 }

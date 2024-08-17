@@ -8,65 +8,80 @@
 import Foundation
 import SwiftUI
 
+enum LoadingState: CaseIterable {
+    case uninitialized
+    case loading
+    case loaded
+    case empty
+}
+
 @MainActor
 final class ProductListViewModel: ObservableObject {
     
+    /// Collection to hold Product object.
     @Published var products: [Product] = []
+    /// The selected SortOption used to show selected state and compute sorting.
     @Published var selectedSortOption: SortOption?
-    @Published var error: Error?
-    @Published var showAlert = false
+    /// Assess whether the sort menu should be shown or not.
     @Published var sortingMenuShown = false
+    /// Holds any errors that may be thrown.
+    @Published var error: Error?
+    /// Property to decide whether an alert should be shown to the user.
+    @Published var showAlert = false
     
-    init() {
+    @Published var loadingState: LoadingState = .uninitialized
+    
+    /// APIservice used for fetching product data.
+    private let apiService: APIService
+    
+    /// Initialises the APIService and loads the initial data.
+    init(apiService: APIService = APIService()) {
+        self.apiService = apiService
         loadData()
     }
     
+    /// Starts an asynchronous task to fetch products from the API.
     func loadData() {
         Task {
-            try await fetchProducts()
-        }
-    }
-    
-    func fetchProducts() async throws {
-        do {
-            let urlString = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
-            guard let url = URL(string: urlString) else { throw GSError.invalidURL }
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode <= 299 else {
-                throw GSError.invalidResponse
+            do {
+                loadingState = .loading
+                try await fetchProducts()
+            } catch {
+                self.error = error
+                showAlert = true
             }
-            
-            let decoder = JSONDecoder()
-            guard let productsDTO = try? decoder.decode(ProductsDTO.self, from: data) else { throw GSError.invalidData }
-            self.products = productsDTO.hits.map { Product(from: $0) }
-            isSortingMenuShown()
-            
-        } catch {
-            print(error.localizedDescription)
-            self.error = error
         }
     }
     
+    /// Set the state of the alert to hidden.
+    func hideAlert() {
+        self.showAlert = false
+    }
+        
+    /// Fetches products from the APIservice and updates the products array.
+    func fetchProducts() async throws {
+        self.products = try await apiService.fetchProducts()
+        isSortingMenuShown()
+        
+        loadingState = products.count > 0 ? .loaded : .empty
+    }
+    
+    /// Updates the state to show or hide the sorting menu based on the number of products.
     func isSortingMenuShown() {
         sortingMenuShown = products.count > 1 ? false : true
     }
     
-    func toggleAlert(error: Error?) {
-        if error != nil {
-            showAlert.toggle()
-        }
-    }
-
-    func refreshList() {
-        products.removeAll()
+    /// Clears the product list, resets sorting, clears errors, and reloads data.
+    func refreshList() async {
+        self.error = nil
+        self.showAlert = false
+        self.selectedSortOption = nil
+        self.products.removeAll()
         isSortingMenuShown()
-        error = nil
-        showAlert = false
-        selectedSortOption = nil
         loadData()
     }
-
+    
+    /// Sorts the products based on the selected sort option and updates the products array.
     func sortResults(sortOption: SortOption) {
         selectedSortOption = sortOption
         switch sortOption {
@@ -77,43 +92,3 @@ final class ProductListViewModel: ObservableObject {
         }
     }
 }
-
-//    func fetchProducts() async {
-//        Task {
-//            do {
-//                print("Fetched products")
-//                self.products = try await APIService.getProducts()
-//                for index in products.indices {
-//                    products[index].description = products[index].description.decodedHtml.trimmingCharacters(in: .whitespaces)
-//                }
-//            } catch {
-//                self.error = error as? GSError
-//            }
-//        }
-//    }
-    
-//    func refreshList() async {
-//        self.products.removeAll()
-//        selectedSortOption = nil
-//        await fetchProducts()
-//    }
-
-//    @Published var shouldShowAlert = false
-//    @Published var isAlertPresented: Bool = false
-    
-//    init() {
-//        Task {
-//            await fetchProducts()
-//        }
-//    }
-
-//extension String {
-//    var decodedHtml: String {
-//        let attr = try? NSAttributedString(data: Data(utf8), options: [
-//            .documentType: NSAttributedString.DocumentType.html,
-//            .characterEncoding: String.Encoding.utf8.rawValue
-//        ], documentAttributes: nil)
-//
-//        return attr?.string ?? self
-//    }
-//}

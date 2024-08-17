@@ -8,27 +8,26 @@
 import SwiftUI
 
 private enum Constants {
-    enum Images {
-        static let gymsharkHeader: String = "fullgslogo"
-    }
+    static let gymsharkHeader: String = "fullgslogo"
+    static let gymsharkHeaderWidth: CGFloat = 100
+    static let collectionViewHorizontalPadding: CGFloat = 10
 }
 
 struct ProductListView: View {
-    
     @StateObject var viewModel = ProductListViewModel()
     
     var body: some View {
         NavigationStack {
             ZStack {
-                collectionView
+                content
                 
                 if viewModel.showAlert {
-                    alertView(message: viewModel.error?.localizedDescription ?? "")
+                    alertView(message: viewModel.error?.localizedDescription)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .refreshable {
-                viewModel.refreshList()
+                await viewModel.refreshList()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -38,20 +37,28 @@ struct ProductListView: View {
                     sortingMenu
                 }
             }
-            .onReceive(viewModel.$error) { error in
-                viewModel.toggleAlert(error: error)
-            }
         }
     }
 }
 
 extension ProductListView {
+    var content: some View {
+        Group {
+            switch viewModel.loadingState {
+            case .uninitialized, .loading, .empty: 
+                LoadingView()
+            case .loaded: 
+                collectionView
+            }
+        }
+    }
+    
     var gymsharkHeader: some View {
-        Image(Constants.Images.gymsharkHeader)
+        Image(Constants.gymsharkHeader)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 100)
-            .foregroundStyle(Color.init(hex: "B51B75"))
+            .frame(width: Constants.gymsharkHeaderWidth)
+            .foregroundStyle(.accent)
     }
     
     var collectionView: some View {
@@ -60,7 +67,6 @@ extension ProductListView {
                 ForEach(viewModel.products, id: \.self) { product in
                     NavigationLink {
                         ProductDetailsView(product: product)
-                        
                     } label: {
                         ProductItemView(
                             product: product,
@@ -69,7 +75,7 @@ extension ProductListView {
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, Constants.collectionViewHorizontalPadding)
         }
     }
     
@@ -80,56 +86,16 @@ extension ProductListView {
         .hidden(viewModel.sortingMenuShown)
     }
     
-    func alertView(message: String) -> some View {
-        VStack {
-            Text("Something went wrong")
-                .font(.title3.bold())
-                .padding(5)
-            
-            Text(message)
-                .font(.subheadline)
-                .multilineTextAlignment(.center)
-                .lineLimit(3, reservesSpace: true)
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-            Button {
-                viewModel.refreshList()
-            } label: {
-                Text("Retry")
-                    .font(.title3)
-                    .foregroundStyle(.white)
-            }
-            .padding(.horizontal, 30)
-            .padding(.vertical, 5)
-            .background(.accent)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-        .overlay(alignment: .topTrailing) {
-            Button {
-                viewModel.showAlert.toggle()
-            } label: {
-                Image(systemName: "xmark")
-                    .font(.headline)
-                    .foregroundStyle(.black)
-            }
-        }
-        .padding()
-        .background(.thinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(.black.opacity(0.18), lineWidth: 2)
-        )
-        .padding()
-        .transition(
-            .opacity.combined(with: .scale)
-            .animation(.bouncy(duration: 0.3, extraBounce: 0.2))
+    func alertView(message: String?) -> some View {
+        CustomAlertView(
+            title: "Something went wrong",
+            message: message,
+            primaryActionTitle: "Try again later",
+            primaryAction: viewModel.hideAlert
         )
     }
-    
 }
 
 #Preview {
     ProductListView()
 }
-
