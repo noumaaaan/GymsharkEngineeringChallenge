@@ -6,56 +6,29 @@
 //
 
 import SwiftUI
-import UIKit
+
+private enum Constants {
+    static let priceTopPadding: CGFloat = 5
+    static let sizingSectionTopPadding: CGFloat = 5
+    static let mediaHeight: CGFloat = 360
+    static let horizontalPadding: CGFloat = 15
+}
 
 struct ProductDetailsView: View {
     let product: Product
     
     var body: some View {
-        
         ScrollView {
             VStack {
                 mediaSection
-                
-                VStack {
-                    if let handle = product.handle {
-                        Text(handle)
-                            .lineLimit(2)
-                            .font(.caption2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
-                    if let labels = product.labels {
-                        HStack {
-                            ForEach(labels, id:\.self) { label in
-                                ProductLabelView(label: label.displayLabel, showBackground: product.inStock)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
-                    Text(product.price.formatted(.currency(code: "GBP")))
-                        .font(.title2).bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(Color.init(hex: "B51B75"))
-                        .padding(.top, 5)
-                    
-                    Text("\(product.type) / \(product.colour)")
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    if let fit = product.fit {
-                        Text(fit)
-                            .font(.caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
+                Group {
+                    handleSection
+                    labelsSection
+                    priceTypeAndColorSection
                     sizingSection
-                        .padding(.top, 5)
-                    
-                    Text(product.description)
+                    description
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, Constants.horizontalPadding)
             }
             .navigationTitle(product.title)
         }
@@ -68,7 +41,7 @@ extension ProductDetailsView {
            if let media = product.media {
                TabView {
                    ForEach(media, id: \.self) { option in
-                       GSImageView(url: option.src, height: 370)
+                        GSImageView(url: option.src, height: Constants.mediaHeight)
                    }
                }
                .tabViewStyle(.page(indexDisplayMode: .automatic))
@@ -78,11 +51,65 @@ extension ProductDetailsView {
                GSImageView(url: product.featuredMedia?.src)
            }
        }
-        .frame(height: 360)
+        .frame(height: Constants.mediaHeight)
+    }
+    
+    var handleSection: some View {
+        Group {
+            if let handle = product.handle {
+                Text(handle)
+                    .lineLimit(2)
+                    .font(.caption2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+    
+    var labelsSection: some View {
+        Group {
+            if let labels = product.labels {
+                HStack {
+                    ForEach(labels, id:\.self) { label in
+                        ProductLabelView(label: label.displayLabel, showBackground: product.inStock)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+    
+    var priceTypeAndColorSection: some View {
+        Group {
+            Text(product.price)
+                .font(.title2).bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(.accent)
+                .padding(.top, Constants.priceTopPadding)
+            
+            Text("\(product.type) / \(product.colour)")
+                .font(.caption)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
+    var productFitSection: some View {
+        Group {
+            if let fit = product.fit {
+                Text(fit)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
     }
     
     var sizingSection: some View {
         AvailableSizesView(product: product)
+            .padding(.top, Constants.sizingSectionTopPadding)
+    }
+    
+    var description: some View {
+        Text(product.description)
+            .font(.callout)
     }
 }
 

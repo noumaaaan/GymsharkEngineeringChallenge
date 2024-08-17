@@ -8,13 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum LoadingState: CaseIterable {
-    case uninitialized
-    case loading
-    case loaded
-    case empty
-}
-
 @MainActor
 final class ProductListViewModel: ObservableObject {
     
@@ -28,8 +21,8 @@ final class ProductListViewModel: ObservableObject {
     @Published var error: Error?
     /// Property to decide whether an alert should be shown to the user.
     @Published var showAlert = false
-    
-    @Published var loadingState: LoadingState = .uninitialized
+    /// Indicates the current Loading State.
+    @Published var loadingState: GSLoadingState = .uninitialized
     
     /// APIservice used for fetching product data.
     private let apiService: APIService

@@ -66,7 +66,7 @@ struct MockProduct {
             .goingFast
         ],
         colour: "Atlas Blue Marl",
-        price: 1000,
+        price: "£1000.00",
         featuredMedia: .init(
             src: "https://cdn.shopify.com/s/files/1/1326/4923/products/FlexHighWaistedLeggingsAtlasBlueMarl-B1A2Q.A-Edit_BK_d2f952d5-9415-4e5e-ae58-4e6dc3e8acca.jpg?v=1647010482"
         ),

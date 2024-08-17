@@ -20,7 +20,6 @@ struct ProductListView: View {
         NavigationStack {
             ZStack {
                 content
-                
                 if viewModel.showAlert {
                     alertView(message: viewModel.error?.localizedDescription)
                 }
@@ -90,7 +89,7 @@ extension ProductListView {
         CustomAlertView(
             title: "Something went wrong",
             message: message,
-            primaryActionTitle: "Try again later",
+            primaryActionTitle: "Dismiss",
             primaryAction: viewModel.hideAlert
         )
     }

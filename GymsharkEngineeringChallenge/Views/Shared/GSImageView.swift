@@ -7,12 +7,21 @@
 
 import SwiftUI
 
+private enum Constants {
+    static let imageWidth: CGFloat = 170
+    static let imageHeight: CGFloat = 205
+    static let imageBackgroundColor: Color = Color.init(hex: "E6E6E6")
+    static let imageCornerRadius: CGFloat = 5
+    static let gymsharkLogo: String = "gslogo"
+    static let logoWidth: CGFloat = 50
+}
+
 struct GSImageView: View {
     var url: String?
-    var width: CGFloat = 170
-    var height: CGFloat = 205
-    var backgroundColor: Color = Color.init(hex: "E6E6E6")
-    var cornerRadius: CGFloat = 5
+    var width: CGFloat = Constants.imageWidth
+    var height: CGFloat = Constants.imageHeight
+    var backgroundColor: Color = Constants.imageBackgroundColor
+    var cornerRadius: CGFloat = Constants.imageCornerRadius
     var aspectRatio: ContentMode = .fit
     
     var body: some View {
@@ -27,12 +36,11 @@ struct GSImageView: View {
                             .frame(maxWidth: .infinity)
                         
                     } else if phase.error != nil {
-                        placeholderView(color: .init(hex: "B51B75"))
+                        placeholderView(color: .accent)
                     } else {
                         placeholderView()
                     }
                 }
-                
             } else {
                 placeholderView()
             }
@@ -43,15 +51,15 @@ struct GSImageView: View {
 }
 
 extension GSImageView {
-    func placeholderView(color: Color = .gray) -> some View {
+    func placeholderView(color: Color = .disabledGrey) -> some View {
         ZStack {
             backgroundColor
                 .frame(height: height)
             
-            Image("gslogo")
+            Image(Constants.gymsharkLogo)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 50)
+                .frame(width: Constants.logoWidth)
                 .foregroundStyle(color)
         }
     }

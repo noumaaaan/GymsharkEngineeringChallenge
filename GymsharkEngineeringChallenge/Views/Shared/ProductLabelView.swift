@@ -7,19 +7,25 @@
 
 import SwiftUI
 
+private enum Constants {
+    static let verticalPadding: CGFloat = 5
+    static let horizontalPadding: CGFloat = 8
+    static let cornerRadius: CGFloat = 10
+}
+
 struct ProductLabelView: View {
     let label: String
     var showBackground: Bool = true
-    let backgroundColor: Color = Color.init(hex: "B51B75")
+    let backgroundColor: Color = .accent
     
     var body: some View {
         Text(label)
             .font(.caption2)
             .foregroundStyle(.white)
-            .padding(.vertical, 5)
-            .padding(.horizontal, 8)
-            .background(showBackground ? backgroundColor : .gray)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.vertical, Constants.verticalPadding)
+            .padding(.horizontal, Constants.horizontalPadding)
+            .background(showBackground ? backgroundColor : .disabledGrey)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
     }
 }
 

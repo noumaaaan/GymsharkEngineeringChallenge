@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+private enum Constants {
+    static let checkmark: String = "checkmark"
+    static let sortIcon: String = "arrow.up.arrow.down.circle"
+}
+
 struct ProductSortView: View {
     let selectedSortOption: SortOption?
     var action: (SortOption) -> Void
@@ -20,17 +25,16 @@ struct ProductSortView: View {
                     HStack {
                         Text(option.label)
                         Spacer()
-                        
                         if let selected = selectedSortOption {
                             if option == selected {
-                                Image(systemName: "checkmark")
+                                Image(systemName: Constants.checkmark)
                             }
                         }
                     }
                 }
             }
          } label: {
-             Image(systemName: selectedSortOption?.image ?? "arrow.up.arrow.down.circle")
+             Image(systemName: selectedSortOption?.image ?? Constants.sortIcon )
         }
          .contentTransition(.symbolEffect(.replace))
     }

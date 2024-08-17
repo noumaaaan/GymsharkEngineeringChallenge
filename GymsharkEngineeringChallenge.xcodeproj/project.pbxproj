@@ -31,6 +31,8 @@
 		8C61236E2C6EF84D00DFF9B6 /* ProductsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61236D2C6EF84D00DFF9B6 /* ProductsDTO.swift */; };
 		8C6123712C6FE5C900DFF9B6 /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123702C6FE5C900DFF9B6 /* HiddenModifier.swift */; };
 		8C6123792C70468B00DFF9B6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123782C70468B00DFF9B6 /* LoadingView.swift */; };
+		8C61237B2C704A0B00DFF9B6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61237A2C704A0B00DFF9B6 /* String+Extension.swift */; };
+		8C61237D2C704A3300DFF9B6 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61237C2C704A3300DFF9B6 /* LoadingState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		8C61236D2C6EF84D00DFF9B6 /* ProductsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDTO.swift; sourceTree = "<group>"; };
 		8C6123702C6FE5C900DFF9B6 /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
 		8C6123782C70468B00DFF9B6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8C61237A2C704A0B00DFF9B6 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		8C61237C2C704A3300DFF9B6 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				8C61235C2C6D855100DFF9B6 /* Color+Extension.swift */,
+				8C61237A2C704A0B00DFF9B6 /* String+Extension.swift */,
 				8C6123762C7018B900DFF9B6 /* CustomModifiers */,
 			);
 			path = Extensions;
@@ -262,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				8C61236B2C6EE6ED00DFF9B6 /* SortOption.swift */,
+				8C61237C2C704A3300DFF9B6 /* LoadingState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -404,12 +410,14 @@
 				8C6123552C6D84D300DFF9B6 /* APIService.swift in Sources */,
 				8C61236E2C6EF84D00DFF9B6 /* ProductsDTO.swift in Sources */,
 				8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */,
+				8C61237B2C704A0B00DFF9B6 /* String+Extension.swift in Sources */,
 				8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */,
 				8C61234F2C6D848100DFF9B6 /* MockProduct.swift in Sources */,
 				8C6123682C6EB50E00DFF9B6 /* ProductSortView.swift in Sources */,
 				8C6123532C6D84CA00DFF9B6 /* GSError.swift in Sources */,
 				8C6123512C6D84B000DFF9B6 /* ProductList+ViewModel.swift in Sources */,
 				8C61235A2C6D852D00DFF9B6 /* ProductDetailsView.swift in Sources */,
+				8C61237D2C704A3300DFF9B6 /* LoadingState.swift in Sources */,
 				8C61236C2C6EE6ED00DFF9B6 /* SortOption.swift in Sources */,
 				8C6123622C6DAB3E00DFF9B6 /* ProductLabelView.swift in Sources */,
 				8C6123712C6FE5C900DFF9B6 /* HiddenModifier.swift in Sources */,

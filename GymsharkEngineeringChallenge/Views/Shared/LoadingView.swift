@@ -8,21 +8,21 @@
 import SwiftUI
 
 private enum Constants {
-    static let gymsharkHeader: String = "fullgslogo"
-    static let gymsharkHeaderWidth: CGFloat = 100
-    static let collectionViewHorizontalPadding: CGFloat = 10
+    static let logo: String = "gslogo"
+    static let logoWidth: CGFloat = 100
+    static let logoOpacity: Double = 0.3
 }
 
 struct LoadingView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                Image("gslogo")
+                Image(Constants.logo)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: Constants.gymsharkHeaderWidth)
+                    .frame(width: Constants.logoWidth)
                     .foregroundStyle(.accent)
-                    .opacity(0.3)
+                    .opacity(Constants.logoOpacity)
                     .frame(width: geometry.size.width)
                     .frame(minHeight: geometry.size.height)
                     .transition(.opacity)

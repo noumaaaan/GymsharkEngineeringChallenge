@@ -26,7 +26,7 @@ struct Product: Codable, Hashable {
     let fit: String?
     let labels: [Labels]?
     let colour: String
-    let price: Int
+    let price: String
     let featuredMedia: Media?
     let media: [Media]?
     
@@ -94,7 +94,7 @@ extension Product {
         self.fit = dto.fit
         self.labels = dto.labels?.compactMap { Labels(rawValue: $0.rawValue) }
         self.colour = dto.colour
-        self.price = dto.price
+        self.price = dto.price.formatted(.currency(code: "GBP"))
         self.featuredMedia = dto.featuredMedia.map { Media(src: $0.src) }
         self.media = dto.media?.map { Media(src: $0.src) }
     }
@@ -106,17 +106,5 @@ extension AvailableSize {
         self.inventoryQuantity = dto.inventoryQuantity
         self.size = Size(rawValue: dto.size.rawValue) ?? .m
         self.price = dto.price
-    }
-}
-
-extension String {
-    var decodedHtml: String {
-        guard let data = self.data(using: .utf8) else { return self }
-        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ]
-        let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil)
-        return attributedString?.string ?? self
     }
 }
