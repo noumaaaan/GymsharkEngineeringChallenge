@@ -41,36 +41,30 @@ final class ProductListViewModel: ObservableObject {
                 try await fetchProducts()
             } catch {
                 self.error = error
-                showAlert = true
+                self.showAlert = true
             }
         }
-    }
-    
-    /// Set the state of the alert to hidden.
-    func hideAlert() {
-        self.showAlert = false
     }
         
     /// Fetches products from the APIservice and updates the products array.
     func fetchProducts() async throws {
         self.products = try await apiService.fetchProducts()
-        isSortingMenuShown()
-        
+        isSortingMenuHidden()
         loadingState = products.count > 0 ? .loaded : .empty
     }
     
     /// Updates the state to show or hide the sorting menu based on the number of products.
-    func isSortingMenuShown() {
+    func isSortingMenuHidden() {
         sortingMenuShown = products.count > 1 ? false : true
     }
-    
+
     /// Clears the product list, resets sorting, clears errors, and reloads data.
-    func refreshList() async {
-        self.error = nil
+    func refreshList() {
         self.showAlert = false
+        self.error = nil
         self.selectedSortOption = nil
         self.products.removeAll()
-        isSortingMenuShown()
+        isSortingMenuHidden()
         loadData()
     }
     
@@ -85,3 +79,14 @@ final class ProductListViewModel: ObservableObject {
         }
     }
 }
+
+//func dismissAlertAndRefresh() {
+//    self.showAlert = false
+//    self.error = nil
+//    self.refreshList()
+//}
+
+///// Set the state of the alert to hidden.
+//func hideAlert() {
+//    self.showAlert = false
+//}

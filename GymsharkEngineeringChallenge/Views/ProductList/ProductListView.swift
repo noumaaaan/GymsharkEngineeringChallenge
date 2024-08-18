@@ -20,13 +20,10 @@ struct ProductListView: View {
         NavigationStack {
             ZStack {
                 content
-                if viewModel.showAlert {
-                    alertView(message: viewModel.error?.localizedDescription)
-                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .refreshable {
-                await viewModel.refreshList()
+                viewModel.refreshList()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -35,6 +32,14 @@ struct ProductListView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     sortingMenu
                 }
+            }
+            .alert("Something went wrong", isPresented: $viewModel.showAlert, presenting: viewModel.error) { error in
+                Button("Try again") {
+                    viewModel.refreshList()
+                }
+            } message: { error in
+                Text(error.localizedDescription)
+                    .font(.subheadline)
             }
         }
     }
@@ -63,7 +68,7 @@ extension ProductListView {
     var collectionView: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                ForEach(viewModel.products, id: \.self) { product in
+                ForEach(viewModel.products) { product in
                     NavigationLink {
                         ProductDetailsView(product: product)
                     } label: {
@@ -85,14 +90,14 @@ extension ProductListView {
         .hidden(viewModel.sortingMenuShown)
     }
     
-    func alertView(message: String?) -> some View {
-        CustomAlertView(
-            title: "Something went wrong",
-            message: message,
-            primaryActionTitle: "Dismiss",
-            primaryAction: viewModel.hideAlert
-        )
-    }
+//    func alertView(message: String?) -> some View {
+//        CustomAlertView(
+//            title: "Something went wrong",
+//            message: message,
+//            primaryActionTitle: "Dismiss",
+//            primaryAction: viewModel.dismissAlertAndRefresh
+//        )
+//    }
 }
 
 #Preview {

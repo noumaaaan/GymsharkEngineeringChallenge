@@ -38,18 +38,13 @@ struct ProductDetailsView: View {
 extension ProductDetailsView {
     var mediaSection: some View {
         VStack {
-           if let media = product.media {
-               TabView {
-                   ForEach(media, id: \.self) { option in
-                        GSImageView(url: option.src, height: Constants.mediaHeight)
-                   }
-               }
-               .tabViewStyle(.page(indexDisplayMode: .automatic))
-               .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-               
-           } else {
-               GSImageView(url: product.featuredMedia?.src)
-           }
+            TabView {
+                ForEach(product.media, id: \.self) { option in
+                     GSImageView(url: option.src, height: Constants.mediaHeight)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .indexViewStyle(.page(backgroundDisplayMode: .interactive))
        }
         .frame(height: Constants.mediaHeight)
     }

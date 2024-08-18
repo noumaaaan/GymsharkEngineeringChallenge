@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class APIService {
+class APIService {
     
     /// Endpoint.
     static let endpoint = "https://cdn.develop.gymshark.com/training/mock-product-responses/algolia-example-payload.json"
@@ -25,4 +25,3 @@ final class APIService {
         return productsDTO.hits.map { Product(from: $0) }
     }
 }
-

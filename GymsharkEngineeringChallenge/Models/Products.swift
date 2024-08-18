@@ -13,7 +13,7 @@ struct Products: Codable, Hashable {
 }
 
 // MARK: - Hit
-struct Product: Codable, Hashable {
+struct Product: Identifiable, Codable, Hashable {
     let id: Int
     let sku: String
     let inStock: Bool
@@ -28,7 +28,7 @@ struct Product: Codable, Hashable {
     let colour: String
     let price: String
     let featuredMedia: Media?
-    let media: [Media]?
+    let media: [Media]
     
     // Reduce the thumbnail fetch to improve performance -> https://cdn.shopify.com/
     var optimisedFeatureMediaURL: String? {
@@ -96,7 +96,7 @@ extension Product {
         self.colour = dto.colour
         self.price = dto.price.formatted(.currency(code: "GBP"))
         self.featuredMedia = dto.featuredMedia.map { Media(src: $0.src) }
-        self.media = dto.media?.map { Media(src: $0.src) }
+        self.media = dto.media.map { Media(src: $0.src) }
     }
 }
 

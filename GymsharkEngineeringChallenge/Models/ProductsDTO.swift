@@ -13,7 +13,7 @@ struct ProductsDTO: Decodable {
 }
 
 // MARK: - ProductDTO
-struct ProductDTO: Decodable {
+struct ProductDTO: Decodable, Identifiable {
     let id: Int
     let sku: String
     let inStock: Bool
@@ -28,7 +28,7 @@ struct ProductDTO: Decodable {
     let colour: String
     let price: Int
     let featuredMedia: MediaDTO?
-    let media: [MediaDTO]?
+    let media: [MediaDTO]
 }
 
 // MARK: - AvailableSizeDTO
