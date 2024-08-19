@@ -26,3 +26,13 @@ Given an API endpoint which will return JSON, parse this and present a list of p
     </tr>
   </tbody>
 </table>
+
+## Video
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/bcd675d8-15ef-4804-86f6-975e2fc46fdf"></td>
+    </tr>
+  </tbody>
+</table>
