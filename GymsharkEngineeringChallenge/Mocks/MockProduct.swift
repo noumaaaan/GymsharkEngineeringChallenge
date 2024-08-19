@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Used for Previews.
 struct MockProduct {
     let product: Product = .init(
         id: 6676631978083,

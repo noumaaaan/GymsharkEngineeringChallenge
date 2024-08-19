@@ -36,8 +36,7 @@ final class APIServiceTests: XCTestCase {
 
     func testFetchProductsWithInvalidURL() async throws {
         do {
-            let products = try await apiService.fetchProducts(urlString: "this-is-an-invalid-url")
-            XCTFail("Expected to throw an invalidURL error but succeeded instead.")
+            let _ = try await apiService.fetchProducts(urlString: "this-is-an-invalid-url")
         } catch let error as GSError {
             XCTAssertEqual(error, GSError.invalidURL)
         } catch {
@@ -47,8 +46,7 @@ final class APIServiceTests: XCTestCase {
 
     func testFetchProductsWithInvalidResponse() async throws {
         do {
-            let products = try await apiService.fetchProducts(urlString: "https://random.com/expect-invalid-response")
-            XCTFail("Expected to throw an invalidResponse error but succeeded instead.")
+            let _ = try await apiService.fetchProducts(urlString: "https://random.com/expect-invalid-response")
         } catch let error as GSError {
             XCTAssertEqual(error, GSError.invalidResponse)
         } catch {

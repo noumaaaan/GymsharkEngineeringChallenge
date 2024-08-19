@@ -41,12 +41,12 @@ struct AvailableSizeDTO: Decodable {
 
 // MARK: - SizeDTO
 enum SizeDTO: String, Decodable {
-    case xs
-    case s
-    case m
-    case l
-    case xl
-    case xxl
+    case xs = "xs"
+    case s = "s"
+    case m = "m"
+    case l = "l"
+    case xl = "xl"
+    case xxl = "xxl"
 }
 
 // MARK: - LabelsDTO

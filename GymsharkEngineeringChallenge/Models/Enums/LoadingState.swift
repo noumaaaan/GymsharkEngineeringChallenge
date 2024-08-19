@@ -14,7 +14,6 @@ enum GSLoadingState: Equatable {
     case emptyLoaded
     case failure(error: Error)
     
-    // Manually implement `Equatable` for the `.failure` case since `Error` is not `Equatable`
     static func == (lhs: GSLoadingState, rhs: GSLoadingState) -> Bool {
         switch (lhs, rhs) {
         case (.uninitialized, .uninitialized),

@@ -26,7 +26,6 @@ enum GSError: LocalizedError, Equatable {
         }
     }
     
-    // Conforming to Equatable.
     static func == (lhs: GSError, rhs: GSError) -> Bool {
         switch (lhs, rhs) {
         case (.invalidURL, .invalidURL),
