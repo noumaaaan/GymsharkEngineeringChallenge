@@ -20,6 +20,7 @@ struct ProductListView: View {
         NavigationStack {
             ZStack {
                 content
+                    .padding(.horizontal, Constants.collectionViewHorizontalPadding)
             }
             .navigationBarTitleDisplayMode(.inline)
             .refreshable {
@@ -33,14 +34,6 @@ struct ProductListView: View {
                     sortingMenu
                 }
             }
-            .alert("Something went wrong", isPresented: $viewModel.showAlert, presenting: viewModel.error) { error in
-                Button("Try again") {
-                    viewModel.refreshList()
-                }
-            } message: { error in
-                Text(error.localizedDescription)
-                    .font(.subheadline)
-            }
         }
     }
 }
@@ -49,9 +42,11 @@ extension ProductListView {
     var content: some View {
         Group {
             switch viewModel.loadingState {
-            case .uninitialized, .loading, .empty: 
+            case .uninitialized, .loading, .emptyLoaded:
                 LoadingView()
-            case .loaded: 
+            case .failure(let error):
+                ErrorView(errorMessage: error.localizedDescription) { viewModel.refreshList() }
+            case .loaded:
                 collectionView
             }
         }
@@ -72,14 +67,10 @@ extension ProductListView {
                     NavigationLink {
                         ProductDetailsView(product: product)
                     } label: {
-                        ProductItemView(
-                            product: product,
-                            imageEndpoint: product.optimisedFeatureMediaURL
-                        )
+                        ProductItemView(product: product, imageEndpoint: product.optimisedFeatureMediaURL)
                     }
                 }
             }
-            .padding(.horizontal, Constants.collectionViewHorizontalPadding)
         }
     }
     
@@ -87,17 +78,8 @@ extension ProductListView {
         ProductSortView(selectedSortOption: viewModel.selectedSortOption) { option in
             viewModel.sortResults(sortOption: option)
         }
-        .hidden(viewModel.sortingMenuShown)
+        .hidden(!viewModel.sortingMenuShown)
     }
-    
-//    func alertView(message: String?) -> some View {
-//        CustomAlertView(
-//            title: "Something went wrong",
-//            message: message,
-//            primaryActionTitle: "Dismiss",
-//            primaryAction: viewModel.dismissAlertAndRefresh
-//        )
-//    }
 }
 
 #Preview {

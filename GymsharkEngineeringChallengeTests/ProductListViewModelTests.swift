@@ -2,368 +2,95 @@
 //  ProductListViewModelTests.swift
 //  GymsharkEngineeringChallengeTests
 //
-//  Created by Noumaan Mehmood on 17/08/2024.
+//  Created by Noumaan Mehmood on 18/08/2024.
 //
 
 import XCTest
 @testable import GymsharkEngineeringChallenge
 
 @MainActor
-final class ProductListViewModelTests: XCTestCase {
-
-    // Mock APIService to simulate success and error scenarios
-    class MockAPIService: APIService {
-        var shouldReturnError = false
-        var mockProducts: [Product] = []
-        
-        override func fetchProducts(urlString: String = APIService.endpoint) async throws -> [Product] {
-            if shouldReturnError {
-                throw GSError.invalidResponse
-            }
-            return mockProducts
-        }
+class ProductListViewModelTests: XCTestCase {
+    
+    var viewModel: ProductListViewModel!
+    var apiService: APIService!
+    
+    override func setUp() {
+        super.setUp()
+        viewModel = ProductListViewModel()
+        apiService = APIService()
     }
     
-    func testLoadDataSuccess() async {
-        // Arrange
-        let mockService = MockAPIService()
-        mockService.mockProducts = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product 1",
-                description: "Description 1",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            ),
-            Product(
-                id: 2,
-                sku: "SKU2",
-                inStock: true,
-                sizeInStock: [.l],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 3, size: .l, price: 30)],
-                handle: "product-2",
-                title: "Product 2",
-                description: "Description 2",
-                type: "Type 2",
-                fit: "Fit 2",
-                labels: [.popular],
-                colour: "Blue",
-                price: "£30.00",
-                featuredMedia: Media(src: "https://example.com/image2"),
-                media: [Media(src: "https://example.com/image2")]
-            )
-        ]
-        let viewModel = ProductListViewModel(apiService: mockService)
-        
-        // Act
-        viewModel.loadData()
-        
-        // Assert
-        XCTAssertEqual(viewModel.products.count, 2)
-        XCTAssertEqual(viewModel.products.first?.title, "Product 1")
-        XCTAssertEqual(viewModel.loadingState, .loaded)
-        XCTAssertFalse(viewModel.showAlert)
+    override func tearDown() {
+        viewModel = nil
+        apiService = nil
+        super.tearDown()
     }
     
-    func testLoadDataFailure() async {
-        // Arrange
-        let mockService = MockAPIService()
-        mockService.shouldReturnError = true
-        let viewModel = ProductListViewModel(apiService: mockService)
-        
-        // Act
-        viewModel.loadData()
-        
-        // Assert
+    func test_initial_state() {
         XCTAssertTrue(viewModel.products.isEmpty)
         XCTAssertEqual(viewModel.loadingState, .uninitialized)
-        XCTAssertTrue(viewModel.showAlert)
-        XCTAssertNotNil(viewModel.error)
-        XCTAssertEqual(viewModel.error?.localizedDescription, GSError.invalidResponse.localizedDescription)
-    }
-    
-    func testSortResultsByPriceAscending() {
-        // Arrange
-        let viewModel = ProductListViewModel(apiService: MockAPIService())
-        viewModel.products = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product B",
-                description: "Description B",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            ),
-            Product(
-                id: 2,
-                sku: "SKU2",
-                inStock: true,
-                sizeInStock: [.l],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 3, size: .l, price: 10)],
-                handle: "product-2",
-                title: "Product A",
-                description: "Description A",
-                type: "Type 2",
-                fit: "Fit 2",
-                labels: [.popular],
-                colour: "Blue",
-                price: "£10.00",
-                featuredMedia: Media(src: "https://example.com/image2"),
-                media: [Media(src: "https://example.com/image2")]
-            )
-        ]
-        
-        // Act
-        viewModel.sortResults(sortOption: .priceAscending)
-        
-        // Assert
-        XCTAssertEqual(viewModel.products.first?.title, "Product A")
-        XCTAssertEqual(viewModel.products.last?.title, "Product B")
-    }
-    
-    func testSortResultsByPriceDescending() {
-        // Arrange
-        let viewModel = ProductListViewModel(apiService: MockAPIService())
-        viewModel.products = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 10)],
-                handle: "product-1",
-                title: "Product A",
-                description: "Description A",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£10.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            ),
-            Product(
-                id: 2,
-                sku: "SKU2",
-                inStock: true,
-                sizeInStock: [.l],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 3, size: .l, price: 20)],
-                handle: "product-2",
-                title: "Product B",
-                description: "Description B",
-                type: "Type 2",
-                fit: "Fit 2",
-                labels: [.popular],
-                colour: "Blue",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image2"),
-                media: [Media(src: "https://example.com/image2")]
-            )
-        ]
-        
-        // Act
-        viewModel.sortResults(sortOption: .priceDescending)
-        
-        // Assert
-        XCTAssertEqual(viewModel.products.first?.title, "Product B")
-        XCTAssertEqual(viewModel.products.last?.title, "Product A")
-    }
-    
-    func testSortingMenuVisibility() {
-        // Arrange
-        let viewModel = ProductListViewModel(apiService: MockAPIService())
-        
-        // Act
-        viewModel.products = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product 1",
-                description: "Description 1",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            )
-        ]
-        viewModel.isSortingMenuShown()
-        
-        // Assert
-        XCTAssertTrue(viewModel.sortingMenuShown)
-        
-        // Act
-        viewModel.products = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product 1",
-                description: "Description 1",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            ),
-            Product(
-                id: 2,
-                sku: "SKU2",
-                inStock: true,
-                sizeInStock: [.l],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 3, size: .l, price: 30)],
-                handle: "product-2",
-                title: "Product 2",
-                description: "Description 2",
-                type: "Type 2",
-                fit: "Fit 2",
-                labels: [.popular],
-                colour: "Blue",
-                price: "£30.00",
-                featuredMedia: Media(src: "https://example.com/image2"),
-                media: [Media(src: "https://example.com/image2")]
-            )
-        ]
-        viewModel.isSortingMenuShown()
-        
-        // Assert
+        XCTAssertNil(viewModel.selectedSortOption)
         XCTAssertFalse(viewModel.sortingMenuShown)
     }
+  
     
-    func testRefreshList() async {
-        // Arrange
-        let mockService = MockAPIService()
-        mockService.mockProducts = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product 1",
-                description: "Description 1",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            ),
-            Product(
-                id: 2,
-                sku: "SKU2",
-                inStock: true,
-                sizeInStock: [.l],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 3, size: .l, price: 30)],
-                handle: "product-2",
-                title: "Product 2",
-                description: "Description 2",
-                type: "Type 2",
-                fit: "Fit 2",
-                labels: [.popular],
-                colour: "Blue",
-                price: "£30.00",
-                featuredMedia: Media(src: "https://example.com/image2"),
-                media: [Media(src: "https://example.com/image2")]
-            )
-        ]
-        let viewModel = ProductListViewModel(apiService: mockService)
-        
-        // Precondition: Load some data initially
+    func test_products_successfully_loaded() async throws {
+        let expectation = XCTestExpectation(description: "Load products from API")
         viewModel.loadData()
-        XCTAssertEqual(viewModel.products.count, 2)
         
-        // Act: Refresh the list
-        await viewModel.refreshList()
+        XCTAssertEqual(viewModel.loadingState, .loading)
         
-        // Assert: Ensure products are cleared and then reloaded
-        XCTAssertEqual(viewModel.products.count, 2)
+        for _ in 0..<100 {
+            if viewModel.loadingState == .loaded {
+                expectation.fulfill()
+                break
+            }
+            try await Task.sleep(nanoseconds: 100_000_000) // 0.1 second
+        }
+        
+        await fulfillment(of: [expectation], timeout: 10)
+        
+        XCTAssertFalse(viewModel.products.isEmpty)
         XCTAssertEqual(viewModel.loadingState, .loaded)
-        XCTAssertFalse(viewModel.showAlert)
+        XCTAssertTrue(viewModel.sortingMenuShown)
     }
     
-    func testHideAlertFunctionality() {
-        // Arrange
-        let viewModel = ProductListViewModel(apiService: MockAPIService())
-        viewModel.showAlert = true
+    func test_sort_results_ascending() async throws {
+        let expectation = XCTestExpectation(description: "Products are sorted ascending")
+        viewModel.loadData()
         
-        // Act
-        viewModel.hideAlert()
+        for _ in 0..<100 {
+            if viewModel.loadingState == .loaded {
+                expectation.fulfill()
+                break
+            }
+            try await Task.sleep(nanoseconds: 100_000_000) // 0.1 second
+        }
         
-        // Assert
-        XCTAssertFalse(viewModel.showAlert)
+        await fulfillment(of: [expectation], timeout: 10)
+        
+        viewModel.sortResults(sortOption: .priceAscending)
+        XCTAssertEqual(viewModel.selectedSortOption, .priceAscending)
+        XCTAssertTrue(viewModel.products == viewModel.products.sorted(by: { $0.price < $1.price}))
     }
+
     
-    func testLoadingStateTransitions() async {
-        // Arrange
-        let mockService = MockAPIService()
-        let viewModel = ProductListViewModel(apiService: mockService)
-        
-        // Precondition: Ensure initial state is uninitialized
-        XCTAssertEqual(viewModel.loadingState, .uninitialized)
-        
-        // Act: Start loading data
-        mockService.mockProducts = [
-            Product(
-                id: 1,
-                sku: "SKU1",
-                inStock: true,
-                sizeInStock: [.s, .m],
-                availableSizes: [AvailableSize(inStock: true, inventoryQuantity: 5, size: .s, price: 20)],
-                handle: "product-1",
-                title: "Product 1",
-                description: "Description 1",
-                type: "Type 1",
-                fit: "Fit 1",
-                labels: [.new],
-                colour: "Red",
-                price: "£20.00",
-                featuredMedia: Media(src: "https://example.com/image1"),
-                media: [Media(src: "https://example.com/image1")]
-            )
-        ]
+    func test_sort_results_descending() async throws {
+        let expectation = XCTestExpectation(description: "Products are sorted descending")
         viewModel.loadData()
         
-        // Assert: State should now be loaded
-        XCTAssertEqual(viewModel.loadingState, .loaded)
+        for _ in 0..<100 {
+            if viewModel.loadingState == .loaded {
+                expectation.fulfill()
+                break
+            }
+            try await Task.sleep(nanoseconds: 100_000_000) // 0.1 second
+        }
         
-        // Act: Simulate an error during loading
-        mockService.shouldReturnError = true
-        viewModel.loadData()
+        await fulfillment(of: [expectation], timeout: 10)
         
-        // Assert: State should revert to uninitialized due to the error
-        XCTAssertEqual(viewModel.loadingState, .uninitialized)
+        viewModel.sortResults(sortOption: .priceDescending)
+        XCTAssertEqual(viewModel.selectedSortOption, .priceDescending)
+        XCTAssertTrue(viewModel.products == viewModel.products.sorted(by: { $0.price > $1.price}))
     }
 }

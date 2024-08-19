@@ -9,7 +9,7 @@ import SwiftUI
 
 private enum Constants {
     static let inStockImageOpacity: Double = 1
-    static let outOfStockImageOpacity: Double = 0.35
+    static let outOfStockImageOpacity: Double = 0.4
     static let labelHorizontalPadding: CGFloat = 5
     static let labelTopPadding: CGFloat = 5
     static let priceAndTitleBottomPadding: CGFloat = 3
@@ -28,7 +28,6 @@ struct ProductItemView: View {
 }
 
 extension ProductItemView {
-    
     var featuredImageView: some View {
         GSImageView(url: imageEndpoint)
             .opacity(product.inStock ? Constants.inStockImageOpacity : Constants.outOfStockImageOpacity)

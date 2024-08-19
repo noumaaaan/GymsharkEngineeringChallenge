@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GSError: LocalizedError {
+enum GSError: LocalizedError, Equatable {
     case invalidURL
     case invalidResponse
     case invalidData
@@ -15,17 +15,28 @@ enum GSError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .invalidURL: 
+        case .invalidURL:
             return "The provided URL is invalid."
-            
         case .invalidResponse:
             return "The response received from the server is invalid. Please check your connection or permissions and try again."
-            
         case .invalidData:
             return "The data received from the server is invalid or corrupted."
-            
         case .unknownError(let error):
             return "An unexpected error occurred: \(error.localizedDescription)"
+        }
+    }
+    
+    // Conforming to Equatable.
+    static func == (lhs: GSError, rhs: GSError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL),
+             (.invalidResponse, .invalidResponse),
+             (.invalidData, .invalidData):
+            return true
+        case (.unknownError(let lhsError), .unknownError(let rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+        default:
+            return false
         }
     }
 }

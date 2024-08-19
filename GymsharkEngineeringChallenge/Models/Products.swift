@@ -89,12 +89,12 @@ extension Product {
         self.availableSizes = dto.availableSizes.map { AvailableSize(from: $0) }
         self.handle = dto.handle
         self.title = dto.title
-        self.description = dto.description.decodedHtml // Decode HTML here
+        self.description = dto.description.decodedHtml // Decode HTML here.
         self.type = dto.type
         self.fit = dto.fit
         self.labels = dto.labels?.compactMap { Labels(rawValue: $0.rawValue) }
         self.colour = dto.colour
-        self.price = dto.price.formatted(.currency(code: "GBP"))
+        self.price = dto.price.formatted(.currency(code: "GBP")) // Format to currency string.
         self.featuredMedia = dto.featuredMedia.map { Media(src: $0.src) }
         self.media = dto.media.map { Media(src: $0.src) }
     }

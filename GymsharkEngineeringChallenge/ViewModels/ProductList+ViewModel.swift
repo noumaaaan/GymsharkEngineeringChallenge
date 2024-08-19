@@ -6,23 +6,20 @@
 //
 
 import Foundation
-import SwiftUI
 
 @MainActor
 final class ProductListViewModel: ObservableObject {
     
     /// Collection to hold Product object.
-    @Published var products: [Product] = []
+    @Published private(set) var products: [Product] = []
+    /// Indicates the current Loading State.
+    @Published private(set) var loadingState: GSLoadingState = .uninitialized
     /// The selected SortOption used to show selected state and compute sorting.
     @Published var selectedSortOption: SortOption?
     /// Assess whether the sort menu should be shown or not.
-    @Published var sortingMenuShown = false
-    /// Holds any errors that may be thrown.
-    @Published var error: Error?
-    /// Property to decide whether an alert should be shown to the user.
-    @Published var showAlert = false
-    /// Indicates the current Loading State.
-    @Published var loadingState: GSLoadingState = .uninitialized
+    var sortingMenuShown: Bool {
+        !products.isEmpty
+    }
     
     /// APIservice used for fetching product data.
     private let apiService: APIService
@@ -33,15 +30,14 @@ final class ProductListViewModel: ObservableObject {
         loadData()
     }
     
-    /// Starts an asynchronous task to fetch products from the API.
+    /// Starts a  task to fetch products from the API.
     func loadData() {
         Task {
+            self.loadingState = .loading
             do {
-                loadingState = .loading
                 try await fetchProducts()
             } catch {
-                self.error = error
-                self.showAlert = true
+                self.loadingState = .failure(error: error)
             }
         }
     }
@@ -49,22 +45,13 @@ final class ProductListViewModel: ObservableObject {
     /// Fetches products from the APIservice and updates the products array.
     func fetchProducts() async throws {
         self.products = try await apiService.fetchProducts()
-        isSortingMenuHidden()
-        loadingState = products.count > 0 ? .loaded : .empty
-    }
-    
-    /// Updates the state to show or hide the sorting menu based on the number of products.
-    func isSortingMenuHidden() {
-        sortingMenuShown = products.count > 1 ? false : true
+        loadingState = products.isEmpty ? .emptyLoaded : .loaded
     }
 
-    /// Clears the product list, resets sorting, clears errors, and reloads data.
+    /// Clears the product list, resets sorting and reloads data.
     func refreshList() {
-        self.showAlert = false
-        self.error = nil
         self.selectedSortOption = nil
         self.products.removeAll()
-        isSortingMenuHidden()
         loadData()
     }
     
@@ -79,14 +66,3 @@ final class ProductListViewModel: ObservableObject {
         }
     }
 }
-
-//func dismissAlertAndRefresh() {
-//    self.showAlert = false
-//    self.error = nil
-//    self.refreshList()
-//}
-
-///// Set the state of the alert to hidden.
-//func hideAlert() {
-//    self.showAlert = false
-//}

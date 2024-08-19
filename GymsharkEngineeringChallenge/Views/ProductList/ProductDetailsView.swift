@@ -43,8 +43,8 @@ extension ProductDetailsView {
                      GSImageView(url: option.src, height: Constants.mediaHeight)
                 }
             }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
-            .indexViewStyle(.page(backgroundDisplayMode: .interactive))
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
        }
         .frame(height: Constants.mediaHeight)
     }

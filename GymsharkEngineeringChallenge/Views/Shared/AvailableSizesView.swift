@@ -9,8 +9,8 @@ import SwiftUI
 
 private enum Constants {
     static let containerSpacing: CGFloat = 5
-    static let selectedScale: Double = 1.3
-    static let unselectedScale: Double = 0.8
+    static let selectedScale: Double = 1.2
+    static let unselectedScale: Double = 0.9
     static let buttonPadding: CGFloat = 10
     static let buttonCornerRadius: CGFloat = 2
     static let buttonBorderColor: Color = .black
