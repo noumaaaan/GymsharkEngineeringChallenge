@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1AD0112C72FA0100CC4F51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C1AD0102C72FA0100CC4F51 /* LaunchScreen.storyboard */; };
 		8C61231F2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */; };
 		8C6123212C6D82EB00DFF9B6 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */; };
 		8C6123232C6D82ED00DFF9B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6123222C6D82ED00DFF9B6 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C1AD0102C72FA0100CC4F51 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C61231B2C6D82EB00DFF9B6 /* GymsharkEngineeringChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymsharkEngineeringChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsharkEngineeringChallengeApp.swift; sourceTree = "<group>"; };
 		8C6123202C6D82EB00DFF9B6 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				8C61231E2C6D82EB00DFF9B6 /* GymsharkEngineeringChallengeApp.swift */,
+				8C1AD0102C72FA0100CC4F51 /* LaunchScreen.storyboard */,
 				8C61234B2C6D844400DFF9B6 /* Models */,
 				8C6123492C6D843800DFF9B6 /* ViewModels */,
 				8C61234A2C6D843F00DFF9B6 /* Views */,
@@ -379,6 +382,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C1AD0112C72FA0100CC4F51 /* LaunchScreen.storyboard in Resources */,
 				8C6123262C6D82ED00DFF9B6 /* Preview Assets.xcassets in Resources */,
 				8C6123232C6D82ED00DFF9B6 /* Assets.xcassets in Resources */,
 			);
@@ -593,11 +597,13 @@
 				DEVELOPMENT_TEAM = T9X5U9D38C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gymshark Challenge";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,11 +628,13 @@
 				DEVELOPMENT_TEAM = T9X5U9D38C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gymshark Challenge";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
